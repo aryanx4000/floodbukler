@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        header{
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: black;
+            backdrop-filter: blur(2px);
+        }
+        header h1{
+            color: #00bcd4;
+        }
+        header button{
+            right: 50px;
+            position: relative;
+            border: none;
+            color: black;
+            padding: 20px 20px;
+            background-color: #00bcd4;
+            border-radius: 20px;
+            font-weight: 550;
+            transition: 0.3s;
+
+        }
+        header button:hover{
+            transform: translateY(-10px);
+        }
+        .taglinea{
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0px 20px;
+            
+        }
+        .taglinea h2{
+            font-size: 60px;
+            margin-bottom: 30px;
+        }
+        .taglinea p{
+            margin-bottom: 30px;
+            color:white;
+        }
+        .taglinea button{
+            width: fit-content;
+            padding: 15px 20px;
+            background:#00bcd4;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+
+        }
+        .taglinea button:hover{
+            transform: translateY(-10px);
+        }
+        .features{
+            text-align: center;
+            display: grid;
+            grid-template-columns: 350px 350px 350px 350px;
+            gap: 30px;
+            margin-top: 120px; 
+            display: flex;
+            justify-content: space-around;
+        }
+        .heading h2{
+            margin-top: 150px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .heading h2:hover{
+            text-decoration: underline;
+        }
+        
+        .card:hover{
+            transform: translateY(-20px);
+            box-shadow: 0px 5px 10px white;
+            background-color: #00bcd4;
+            color: black;
+        }
+        .bottom{
+            padding: 100px ;
+            text-align: center;
+            background-attachment: #2c2c2c;
+        }
+        .bottom button{
+            padding: 20px 40px;
+            margin-top: 30px;
+            background-color: #00bcd4;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .bottom button:hover{
+            transform: translateY(-10px);
+        }
+        #before{
+            display: none ;
+            margin-top: 70px;
+        }
+        #during{
+            display: none;
+            margin-top: 70px;
+        }
+        #after{
+            display: none;
+            margin-top: 70px;
+        }
+        .buttons{
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .buttons button{
+            height: 50px;
+            width: 150px;
+            background-color: #00bcd4;
+            color: black;
+            font-weight: 550;
+            border-radius: 10px;
+            transition: 0.3s;
+         }
+        .buttons button:hover{
+            transform: translateY(-10px);
+        }
+        #quiz-box{
+            margin: 40px auto;
+            background: #151a15;;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        #progress{
+            margin-bottom: 20px;
+            font-size: 1em;
+            color: #555;
+        }
+        #question{
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: white;
+        }
+        #quiz-box button{
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: white;
+            transition: 0.4s;
+        }
+        .correct{
+            background-color: #00df10 !important;
+            border-color: #28a745;
+        }
+        .wrong{
+            background-color: red !important;
+            border-color: #dc3545;
+        }
+        
+        #nxt-btn{
+            border: none;
+            border-radius: 10px;
+            
+            background-color: #007bff;
+            padding: 12px 30px;
+            margin-top: 20px;
+            color: black;
+        }
+        .container{
+            background-color: #151a15;
+            padding: 20px;
+            border-radius: 20px;
+            
+        }
+        .container:hover{
+            box-shadow: 0px 5px 10px whitesmoke;
+        }
+        .status{
+            margin-top:20px;
+            padding: 10px;
+            border-radius: 5px;
+
+        }
+        .safe{
+            background-color: green;
+        }
+        .moderate{
+            background-color: orange;
+        }
+        .danger{
+            background-color: red;
+        }
+        .checklist{
+            background-color: #151a15;
+            padding: 10px;
+            text-align: left;
+            border-radius: 20px;
+        }
+        .checklist:hover{
+            box-shadow: 0px 5px 10px whitesmoke;
+        }
+
+        .community{
+            padding: 10px;
+            background-color: #151a15;
+            border-radius: 20px;
+        }
+        .community:hover{
+            box-shadow: 0px 5px 10px whitesmoke;
+        }
+        .report{
+            background-color: #151a15;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+        .report img{
+            width :100%;
+            border-radius: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>FloodBuckler</h1>
+        <button onclick="showsection()">Get Started</button>
+    </header>
+
+    <section class="taglinea">
+        <h2>Stay Safe. Stay Aware.</h2>
+        <p>Real-time flood alerts, safe routes & emrgency help all in one platform.
+            <br>
+            Built to protect lives during disasters.
+        </p>
+        <button onclick="showsection()">Explore Features</button>
+    </section>
+<div class="heading">
+    <h2>What We Offer?</h2>
+</div>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Live Weather  & flood</h2>
+            <p id="location">Getting location...</p>
+            <p id="weather">Loading weather...</p>
+            <div id="risk" class="status">Ckecking Risk
+            </div>
+        </div>
+
+        <div class="checklist">
+            <h2>Emergency Checklist</h2>
+            <label><input type="checkbox">Drinking Water(at least 2-3L)</label>
+            <br>
+            <label><input type="checkbox">First Aid kit</label>
+            <br>
+            <label><input type="checkbox">Dry Food(biscuts,snacks)</label>
+            <br>
+            <label><input type="checkbox">Extra Clothes</label>
+            <br>
+            <label><input type="checkbox">Blanket/Raincoat</label>
+            <br>
+            <label><input type="checkbox">Masks</label>
+            <br>
+            <label><input type="checkbox">Hand Sanitizer</label>
+            <br>
+            <label><input type="checkbox">Torch</label>
+            <br>
+            <label><input type="checkbox">Extra-batteries</label>
+            <br>
+            <label><input type="checkbox">Mobile charger</label>
+            <br>
+            <label><input type="checkbox">switch off electricity</label>
+            <br>
+            <label><input type="checkbox">Move valuables to higher place</label>
+            <br>
+            <label><input type="checkbox">Store clean water</label>
+            <br>
+            <label><input type="checkbox">Seal important items in plastic</label>
+            <br>
+            <label><input type="checkbox">ID proof</label>
+        </div>
+
+        <div class="community">
+            <h2>Community Reports</h2>
+            <input type="file" id="imageinput" accept="image/*">
+            <button onclick="uploadReport()">Upload</button>
+            <di class="reports"></di>
+        </div>
+    </section>
+
+    <div class="buttons">
+    <button onclick="before('before')">Before</button>
+    <button onclick="during('during')">During</button>
+    <button onclick="after('after')">After</button>
+    </div>
+    
+    <section id="before">
+        <h2>Things To Do Before Floods.</h2>
+        <b>&rightarrow; Know Your Risk & Stay Informed</b>
+        <p>
+            Check if your area is at risk using local flood maps on resources form authorities. Flooding can happen even away from rivers due to heavy rain or drainage issues.
+            <br><br>
+            Sign up for local emergency alerts, weather apps, radio or SMS services or your district warning system. 
+            <br><br>
+            Learn evacuation routes, nearby higher ground, & shleters locations in advance. Pracice them with your family.
+        </p>
+        <br><br><br>
+        <b>&rightarrow; Make A Family Emergency plan</b>
+        <p>
+            Discuss and write down what each family member will do: where to meet if separated, how to communicate(phones may fail), and who will handle pets or elderly members.
+            <br><br>
+            Include specail needs like medications, baby supplies, or mobility aids.
+            <br><br>
+            Plan for flash floods by identifying quick routes to high ground.
+        </p>
+        <br><br><br>
+        <b>Build An Emergency Kit (Go-Bag)</b>
+        <p>
+            <b>Water:</b>At least 5 litres per person per day(drinking, cooking, basic hygiene).
+            <br><br>
+            <b>Food:</b>Non-pershiable items(dry rations, biscuts, readt-to-eat foods) taht need little or no cooking.
+            <br><br>
+            <b>Essentials:</b>Battery-powered torch/flashlight, extra-batteries, hand-crank or battery radio, first-aid kit, essentials medicines(7-day supply), chlorine tablets for water purificaiton, candles/matches(in waterproof container), knife, thick ropes, waterproof footwear, rain gear, towels/blankets.
+            <br><br>
+            <b>Documents:</b>Copies of ID cards, health/vaccination records, insurance papers.
+            <br><br>
+            <b>Others:</b>Cash, Phone charger/power banks, pet supplies(if needed), sanitaion items(soap, snitizer, garbage-bags)
+        </p>
+        <br><br><br>
+        <b>Prepare Your Home & Property</b>
+        <p>
+            Elevate important items or move them to higher floors/attics if time allows.
+            <br><br>
+            Know how to shut off gas, electricity, & water mains to prevent fires, electrocution or leaks.
+            <br><br>
+            Clean gutters & drais=ns around your home to reduce water buildup.
+            <br><br>
+            Untie livestock or move pets to safety.
+        </p>
+        <br><br><br>
+        <b>Get insurance & Document Everything</b>
+        <p>
+            Standard home insurance often doesn't cover floods. Check or buy specific flood insurance well in advance.
+            <br><br>
+            Take photos/videos of your home interior's exterior, and valuable for insurance claims later.
+            <br><br>
+            Avoid building or storing valuables in basements/flood prone spots if possible
+        </p>
+    </section>
+
+    <section id="during">
+        <h2>Things To Do During Floods.</h2>
+        <b>Stay Informed & Follow  Official Advice</b>
+        <p>
+            Listen continuously to radio, TV, or reliable apps for updates.
+            <br><br>
+            Heed flood warnings immediately. If an evacuation order is issued, leave right away-do not wait for water to rise.
+            <br><br>
+            Avoid rumors: rely only on Official sources.
+        </p>
+        <br><br><br>
+        <b>Move To Higher Ground immediately</b>
+        <p>
+            If flooding starts or a flash flood is possible, go to the highest level in your building or to nearby high ground/ shelters. Don't wait for instrucitons.
+            <br><br>
+            <b>If Trapped Indoors:</b>Move to an upper floor or roof. Take your emergency kit, important documents, nedicines, water, and non-perishable food.
+        </p>
+        <br><br><br>
+        <b>If You Must Evacuate</b>
+        <p>
+            Secure your home quickly if time allows: Tuen off electricity at the main switch, close gas valves, an unplug appliances.
+            <br><br>
+            Take your Go-Bag with you.
+            <br><br>
+            Use sturdy footweaar and a stick/pole to test water depth if you must walk in still water
+        </p>
+        <br><br><br>
+        <b>Health & Hygiene During The Food</b>
+        <p>
+            USe disinfectants to clean surroudings if possible.
+            <br><br>
+            Protect against mosquitoes as stagnant water breeds them, increasing risks of diseases like dengue or malaria.
+            <br><br>
+            IF someone is sick or injured, seek medical help immediately- contact local helplines.
+            <br><br>
+            Check for gas leaks, strucural damage, and contamination brfore entering if safe. If you smell gas or see sparks, evaacuate immediately and call emergency services.
+            <br><br>
+            
+        </p>
+        <br><br><br>
+    </section>
+
+    <section id="after">
+        <h2>Things To Do After Flood</h2>
+        <b>Wait For Official Clearcance & Ensure Safety First</b>
+        <p>
+            Do not return home until authorities declare the area safe. Floodwaters can hide dangers like weakend strucures, sinkholes, or live wires.
+            <br><br>
+            Turn off electricity and gas at the main switch before entering if safe. Have a qualified electrician inspect wiring and appliances-never turn power on if standing in water or if lines are damaged.
+        </p>
+        <br><br>
+        <b>Cleanup Safely</b>
+        <p>
+            Remove mud and debris- Shovel out as much as possible, then hose down hard surfaces. Dispose of contamninted waste properly.
+            <br><br>
+            Throw away anything porous that touched floodwater, mattresses, pillows, upholstered furniture, carpets, drywalls bwlow water level andd food/perishables. These can harbor mold and bacteria
+        </p>
+        <br><br>
+        <p>
+            <b>Health and Hygiene Precautions</b>
+
+            Drink only boiled, chlorinated or purified water. Do not use tap water until declared safe.
+            <br><br>
+            Discard any food taht contacted floodwater. Cook fresh meals; keep food covered.
+            <br><br>
+            Floods increase risks of waterborne(diarrohea, cholera, typhoid, hepatiits A), vector borne(dengue, malaria from stagant water), skin infections, lelptospirosis and resiratory issues.
+            <br><br>
+            Seek free medical aid at relief camps or govt. facilities.
+        </p>
+        <br><br><br>
+        <b>Recovery & Rehabilitaion</b>
+        <p>
+            Get water,electricity and sanitation services restored safely. Check sewage lines for backups.
+            <br><br>
+            Prioritize elderly, children, disabled and preganant individuals.
+            <br><br>
+            Report crop/livestock losses or business damage for compensation.
+        </p>
+    </section>
+    
+    <div id="quiz-box">
+    <h2>Flood safety quiz</h2>
+    <div id="progress"></div>
+    <h2 id="question"></h2>
+    <div id="options"></div>
+    <button id="nxt-btn" onclick="nextQuestion()">Next</button>
+    </div>
+
+
+    <section class="bottom">
+        <h2>BE PREPARED BEFOR IT'S TOO LATE</h2>
+        <p>Join to stay safe during flood.</p>
+        <button>Join Now!</button>
+    </section>
+
+    <script>
+
+        function showsection(){
+            document.getElementById('features').scrollIntoView({behavior:"smooth"})
+        }
+
+        
+        function hidebefore(){
+            document.getElementById('before').style.display='none';
+        }
+        function hideduring(){
+            document.getElementById('during').style.display='none';
+        }
+        function hideafter(){
+            document.getElementById('after').style.display='none';
+        }
+
+        function before(){
+            document.getElementById('before').style.display='block';
+            hideafter()
+            hideduring()
+        }
+        function during(){
+            document.getElementById('during').style.display='block';
+            hideafter()
+            hidebefore()
+        }
+        function after(){
+            document.getElementById('after').style.display='block';
+            hidebefore()
+            hideduring()
+        }
+
+
+        const quizdata=[
+            {
+            question:"What should you do before a flood?",
+            options:[
+                "Ignore weather updates",
+                "Prepare an emergency kit",
+                "Go near rivers",
+                "Leave doors open"
+            ],
+            correct:1
+        },
+        {
+        question: "What is safest during a flood?",
+        options:[
+            "Stay indoor & move to higher ground",
+            "Walk in water",
+            "Drive fast",
+            "Use Electircity"
+        ],
+        correct:0
+        },
+        {
+            question:"What to after flood?",
+            options:[
+                "Drink tap water",
+                "Enter quickly",
+                "Ignore safery",
+                "Ckeck damage & avoid dirty water"
+            ],
+            correct:3
+        },
+        {
+            question:"What is flood?",
+            options:[
+                "A period of extreme drought",
+                "When water covers land that is normally dty",
+                "Strong winds causing damage",
+                "An earthquake in coastal areas"
+            ],
+            correct:1
+        },
+        {
+            question:"What distinguishes a flash flood from other types?",
+            options:[
+                "It lasts for several months",
+                "It occurs suddenly with little warning, often due to intense rain",
+                "It only happns in deserts",
+                "It is caused by melting galceirs slowly"
+            ],
+            correct:1
+        },
+        {
+            question:"What is slow-onset flood?",
+            options:[
+                "A flood tat happns in a minutes",
+                "A flood that builds up over days or weeks often in large river systems",
+                "A flood cused only by tsunamis",
+                "An urban flood from blocked drains"
+            ],
+            correct:1
+        },
+        {
+            question:"How is the size (maginitude) of a flood often measured?",
+            options:[
+                "By the peak water level or peak flow rate in a river",
+                "By wind speed during the event",
+                "By the number of clouds in the sky",
+                'By the color of the water'
+            ],
+            correct:0
+        },
+        {
+            question:"Whcih of the following is a structural method of flood control?",
+            options:[
+                "Floodplain zoning(restricting building in flood-prone areas)",
+                "Early warning system only",
+                "Planting trees in urban areas",
+                "Building dams, levees or embankments"
+            ],
+            correct:3
+        },
+        {
+            question:"What is the major effect of flooding on the environment?",
+            options:[
+                "Soil erosion, sediment deposition and possible water pollution",
+                "It reduces all plant life instantly",
+                "It always increases soil fertility permanently",
+                "It prevents any future rainfall"
+            ], 
+            correct:0
+        },
+        {
+            question:"In many countries, what humnan activity increases flood risk?",
+            options:[
+                "Building more parks",
+                "Deforestation and urbanization (replacing vegetation with concrete)",
+                "Reducing water usage",
+                "Planting more forests in cities"
+            ],
+            correct:1
+        }
+    ];
+
+    let currentquestion=0;
+    let score=0;
+    function loadQuestion(){
+        const q  = quizdata[currentquestion];
+        document.getElementById('question').innerText = q.question;
+        document.getElementById('progress').innerText =  `Question ${currentquestion+1}of${quizdata.length}`;
+        const optionDiv =  document.getElementById('options');
+        optionDiv.innerHTML = '';
+        q.options.forEach((opt,index)=>{
+            const btn= document.createElement('button');
+            btn.innerText=opt;
+            btn.onclick=()=>checkAnswer(index,btn);
+            optionDiv.appendChild(btn);
+        })
+        document.getElementById('nxt-btn').style.display='none'
+    }
+
+    function checkAnswer(selected,btn){
+        const correct=quizdata[currentquestion].correct;
+        const buttons=document.querySelectorAll('#options button');
+    
+        buttons.forEach((b,i)=>{
+            b.disabled=true;
+            if(i===correct){
+                b.classList.add('correct')
+            }
+            if(i===selected && i !== correct){
+                b.classList.add('wrong')
+            }
+        })
+        if(selected===correct){
+            score++;
+        }
+        document.getElementById('nxt-btn').style.display='inline-block';
+    }
+
+    function nextQuestion(){
+        currentquestion++;
+        if(currentquestion<quizdata.length){
+            loadQuestion();
+        }
+        else{
+            showScore();
+        }
+    }
+
+    function showScore(){
+        const quizbox=document.getElementById('quiz-box');
+        quizbox.innerHTML=`<h2>Your Score:${score}/${quizdata.length}</h2>
+        <p>${getMessage()}</p>
+        <button onclick="location.reload()" style="margin-top:20px; padding:12px 30px; font-size:1.1em;">Restart Quiz </button>`;
+    }
+    function getMessage(){
+        if(score<=1) return "Learn more";
+        else if(score<=2) return "Good Job";
+        else return "Excellent"
+    }
+
+    window.onload=loadQuestion;
+
+    
+        const apikey='29b5652b35783d43d315d680121dd537';
+        function getWeather(lat,lon){
+            const url=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}$appid=${apikey}$units=metric`;
+            
+            fetch(url)
+            .then(res => res.json())
+            .then(data =>{
+                const temp = data.main.temp;
+                const condition =  data.weather[0].main;
+                const city = data.name;
+
+                document.getElementById('location').innerText=`${city}`;
+
+                document.getElementById('weather').innerText=`${temp} ${condition}`;
+
+                checkfloodrisk(condition,temp)
+            })
+            .catch(() => {
+                document.getElementById('weather').innerText="Error loading weather";
+            })
+        }
+
+        function checkfloodrisk(condition,temp){
+            const riskbox = document.getElementById('risk');
+            condition = condition.toLowerCase();
+
+            if(condition.includes('rain') || condition.includes('storm')){
+                riskbox.innerText="High Flood risk";
+                riskbox.className="Status danger";
+            }
+            else if(condition.includes('cloud')){
+                riskbox.innerTex="Moderate Risk";
+                riskbox.className="Status moderate";
+            }
+            else{
+                riskbox.innerText="Low risk";
+                riskbox.className="Status safe";
+            }
+        }
+
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition((position)=>{
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                getWeather(lat,lon);
+            },
+            () => {
+                document.getElementById('location').innerText="Location denied. Showing Delhi data";
+                getWeather(28.6139,77.2090)
+            }
+        );
+        }
+        else{
+            document.getElementById('location').innerText="Geolocation not supported";
+        }
+
+        const checkboxes=document.querySelectorAll("input[type='checkbox']");
+        checkboxes.forEach((box,index)=>{
+            box.checked=localStorage.getItem("check_"+index)==="true";
+            box.addEventListener("change",()=>{
+                localStorage.setItem("check_"+index,box.checked)
+            })
+        });
+
+        let reports=JSON.parse(localStorage.getItem('reports'))||[];
+        function uploadReport(){
+            const fileInput=document.getElementById('imageinput');
+            const file=fileInput.files[0];
+            if(!file){
+              alert("Please select an image")  
+            };
+            return
+        }
+
+        const reader=new FileReader();
+        reader.onload=function(){
+            getLocation((location)=>{
+                const report={
+                    image:reader.result,
+                    location:location,likes:0
+                };
+
+                reports.push(report);
+                localStorage.setItem('reports',JSON.stringify(reports))
+                displayReports()
+            })
+        };
+
+        reader.readAsDatasURL(file)
+    
+        function getLocation(callback){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition((pos)=>{
+                    const loc=`Lat:${pos.coords.latitude}, Lng:${pos.coords.longitude}`;
+                    callback(loc);
+
+                },()=>{
+                    callback('Location unavailable')
+                })
+            }
+            else{
+                callback("Not supported")
+            }
+        }
+        function likeReport(index0){
+            reports[index].likes++;
+            localStorage.setItem('reports',JSON.stringify(reports));
+            displayReports();
+        }
+        function displayReports(){
+            const contain=document.getElementById('reports');
+            contain.innerHTML="";
+
+            reports.forEach((rep,index)=>{
+                contain.innerHTML+=`<div class ="report">
+                    <img sec="${rep.image}"/>
+                    <p> ${rep.location}</p>
+                    <button onclick ="likeReport"(${index})">
+                        ${rep.likes}
+                    </button>
+                    </div>`;
+            })
+        }
+
+        displayReports();
+    </script>
+
+</body>
+</html>
