@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        }
+        body{
+            background: #232323;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .login-container{
+            background: #232323;
+            width: 600px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-radius: 20px;
+        }
+        h1{
+            font-size: 25px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        h1:hover{
+            text-decoration: underline;
+        }
+        p{
+            font-size: 16px;
+            color: #8e8e93;
+            line-height: 2;
+            margin-bottom: 40px;
+        }
+        .input-group{
+            background: #ffffff;
+            border-radius: 20px;
+            display: flex;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+        }
+        .input-group input{
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            display: flex;
+            font-size: 17px;
+            color: #333;
+        }
+        .forgot{
+            display: block;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        button{
+            width: 100%;
+            padding: 18px;
+            border: none;
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            transition: opacity 0.2s;
+        }
+        .btn-primary{
+            background:#2092e9;
+            color: white;
+            margin-top: 10px;
+            border-radius: 20px;
+        }
+        .btn-secondary{
+            background: white;
+            color: #1c1c1e;
+            border-radius: 20px;
+        }
+        .btn-social{
+            background: #f2f2f7;
+            color: #1c1c1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 20px;
+            height: 70px;
+        }
+        .btn-social:hover{
+            transform: translateY(2px);
+        }
+        .btn-social img{
+            width: 55px;
+            height: 50px;
+        }
+        .divider{
+            position: relative;
+            margin: 25px 0;
+            border-bottom: 1px solid #e5e5ea;
+        }
+        .divider span{
+            position: absolute;
+            top: -10px;
+            left: 220px;
+            transform: translateX(-50px);
+            background: #232323;
+            padding: 0 15px;
+            color: white;
+            font-size: 15px;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Sign In</h1>
+        <p>To sign in to an account in the application,enter your email & password</p>
+
+        <form action="">
+            <div class="input-group">
+                <input type="email" placeholder="Enter email">
+            </div>
+
+            <div class="input-group">
+                <input type="password" placeholder="password">
+            </div>
+
+            <a href="#" class="forgot">Forgot password?</a>
+
+            <button type="submit" class="btn-primary" id="continue" onclick="changecolor()">Continue</button>
+        </form>
+
+        <div class="divider">
+            <span>Don't have an account yet?</span>
+        </div>
+
+        <button class="btn-secondary">Create an account</button>
+
+        <button class="btn-social">
+            <img src="facebook.png"> Sign in with Fcebook
+        </button>
+        <button class="btn-social">
+            <img src="google.png"> Sign in with Google
+        </button>
+    </div>
+
+    <script>
+        let btn = document.getElementById('continue')
+        function changecolor(){
+            btn.style.backgroundColor='green'
+            
+        }
+    </script>
+    
+</body>
+</html>
