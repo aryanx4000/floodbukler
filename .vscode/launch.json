@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Intro",
+            "request": "launch",
+            "mainClass": "Intro",
+            "projectName": "myprojects_a4495dff"
+        },
+        {
+            "type": "java",
+            "name": "Aryan",
+            "request": "launch",
+            "mainClass": "Aryan",
+            "projectName": "myprojects_a4495dff"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "myprojects_a4495dff"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open signup.html",
+            "file": "c:\\Users\\Aryan\\myprojects\\shoe_website\\signup.html"
+        }
+    ]
+}

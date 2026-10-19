@@ -1,0 +1,3151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qubby • Share • Study • Succeed</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --teal: #14b8a6;
+            --amber: #f59e0b;
+            --emerald: #10b981;
+            
+            /* Dark Mode Colors */
+            --bg: #0f172a;
+            --bg-secondary: #1e2937;
+            --bg-tertiary: #334155;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --card-bg: #1e2937;
+            --hover-bg: #334155;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1536px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        /* Navbar */
+        nav {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: #6366f1;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .logo-icon i {
+            color: white;
+            font-size: 1.75rem;
+        }
+        
+        .logo-text {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 1.875rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            color: var(--text);
+        }
+        
+        .nav-links {
+            display: none;
+            align-items: center;
+            gap: 2rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: white;
+            background: var(--bg-tertiary);
+        }
+        
+        .search-bar {
+            display: none;
+            position: relative;
+            flex: 1;
+            max-width: 420px;
+            margin: 0 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .search-bar {
+                display: block;
+            }
+        }
+        
+        .search-bar input {
+            width: 100%;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            padding: 0.625rem 1rem 0.625rem 2.75rem;
+            font-size: 0.875rem;
+            color: var(--text);
+            outline: none;
+            transition: all 0.2s;
+        }
+        
+        .search-bar input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .upload-btn {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            background: #6366f1;
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        @media (min-width: 768px) {
+            .upload-btn {
+                display: flex;
+            }
+        }
+        
+        .upload-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-1px);
+        }
+        
+        .avatar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .avatar img {
+            width: 36px;
+            height: 36px;
+            border-radius: 1rem;
+            object-fit: cover;
+            border: 2px solid var(--bg-secondary);
+        }
+        
+        .avatar-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .mobile-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+        
+        .mobile-menu {
+            display: none;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+        }
+        
+        .mobile-menu.show {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 0.625rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .mobile-menu a:hover {
+            background: var(--bg-tertiary);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .theme-toggle:hover {
+            background: var(--hover-bg);
+            color: var(--text);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            padding: 4rem 2rem 5rem;
+            border-radius: 0 0 4rem 4rem;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 3.5rem;
+            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 4.25rem;
+            }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            max-width: 520px;
+            margin: 0 auto 2.5rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+            }
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #6366f1;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255,255,255,0.6);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Stats */
+        .stats {
+            max-width: 1536px;
+            margin: -2rem auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+        }
+        
+        .stat-number {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text);
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 3rem 0;
+        }
+        
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--text);
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(15 23 42 / 0.3);
+            border-color: #6366f1;
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(3deg);
+        }
+        
+        .feature-icon.indigo { background: #312e81; color: #6366f1; }
+        .feature-icon.teal { background: #134e4a; color: #14b8a6; }
+        .feature-icon.violet { background: #4c1d95; color: #a78bfa; }
+
+        /* Notes Section */
+        #notes {
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .notes-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-tabs {
+            display: none;
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        @media (min-width: 768px) {
+            .filter-tabs {
+                display: flex;
+            }
+        }
+        
+        .filter-btn {
+            padding: 0.375rem 1.25rem;
+            border-radius: 9999px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn.active {
+            background: var(--bg-secondary);
+            color: #6366f1;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            font-weight: 600;
+        }
+        
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.25rem;
+        }
+        
+        .note-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .note-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+            border-color: #6366f1;
+        }
+        
+        .note-image {
+            position: relative;
+            height: 160px;
+            background: #334155;
+            overflow: hidden;
+        }
+        
+        .note-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .note-card:hover .note-image img {
+            transform: scale(1.08);
+        }
+        
+        .note-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 9999px;
+        }
+        
+        .note-badge.math { background: #451a03; color: #fbbf24; }
+        .note-badge.cs { background: #1e3a8a; color: #60a5fa; }
+        .note-badge.science { background: #14532d; color: #4ade80; }
+        
+        .note-downloads {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(30, 41, 59, 0.95);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .note-content {
+            padding: 1rem;
+        }
+        
+        .note-title {
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        
+        .note-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .note-author img {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+        }
+        
+        .note-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+        
+        .note-rating {
+            display: flex;
+            align-items: center;
+            color: #fbbf24;
+            font-weight: 700;
+        }
+        
+        .note-verified {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #4ade80;
+            font-weight: 500;
+        }
+        
+        .note-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .note-actions button {
+            flex: 1;
+            padding: 0.625rem 0;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .note-actions .btn-preview {
+            background: #6366f1;
+            color: white;
+            border: none;
+        }
+        
+        .note-actions .btn-preview:hover {
+            background: #4f46e5;
+        }
+        
+        .note-actions .btn-download {
+            background: var(--bg-tertiary);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .note-actions .btn-download:hover {
+            background: var(--hover-bg);
+        }
+
+        /* Courses */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+        
+        .course-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.5s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+            border-color: #6366f1;
+            
+        }
+        
+        .course-image {
+            position: relative;
+            height: 160px;
+            
+        }
+        
+        .course-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            
+        }
+        .course-card:hover .course-image img{
+            transform: scale(1.2);
+        }
+
+        
+        .course-price {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--bg-secondary);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .course-content {
+            padding: 1.25rem;
+        }
+        
+        .course-subject {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-subject.cs { background: #1e3a8a; color: #60a5fa; }
+        .course-subject.science { background: #14532d; color: #4ade80; }
+        .course-subject.physics { background: #1e3a8a; color: #60a5fa; }
+        
+        .course-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            line-height: 1.3;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .course-instructor img {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-secondary);
+        }
+        
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .course-btn {
+            width: 100%;
+            padding: 0.875rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .course-btn.free {
+            background: #14b8a6;
+            color: white;
+        }
+        
+        .course-btn.free:hover {
+            background: #0d9488;
+        }
+        
+        .course-btn.paid {
+            background: #6366f1;
+            color: white;
+        }
+        
+        .course-btn.paid:hover {
+            background: #4f46e5;
+        }
+
+        /* Study Tools */
+        .study-section {
+            background: linear-gradient(135deg, #1e2937 0%, #0f172a 100%);
+            color: white;
+            border-radius: 1.5rem;
+            padding: 3.5rem 2rem;
+            margin: 2rem;
+            border: 1px solid var(--border);
+        }
+        
+        .study-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .study-content {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+        
+        .study-left {
+            flex: 5;
+        }
+        
+        .study-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 0.25rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+        
+        .study-title {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 2.75rem;
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .study-desc {
+            color: rgba(255,255,255,0.75);
+            font-size: 1.1rem;
+            max-width: 420px;
+        }
+        
+        .study-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .study-timer-widget {
+            flex: 7;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+        
+        .timer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timer-display {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 5rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1;
+            margin: 1rem 0;
+            letter-spacing: -0.05em;
+        }
+        
+        @media (min-width: 768px) {
+            .timer-display {
+                font-size: 6rem;
+            }
+        }
+        
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .timer-btn {
+            padding: 0.625rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .timer-btn.start {
+            background: white;
+            color: #0f172a;
+            border: none;
+        }
+        
+        .timer-btn.start:hover {
+            background: #f1f5f9;
+        }
+        
+        .timer-btn.secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .timer-btn.secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Pomodoro Settings */
+        .pomodoro-settings {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .pomodoro-settings input {
+            width: 60px;
+            padding: 4px 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            text-align: center;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .testimonial {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+        }
+        
+        .testimonial-stars {
+            color: #fbbf24;
+            margin-bottom: 1.25rem;
+        }
+        
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #cbd5e1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1.75rem;
+        }
+        
+        .testimonial-author img {
+            width: 42px;
+            height: 42px;
+            border-radius: 1rem;
+            border: 2px solid var(--bg-secondary);
+        }
+        
+        .testimonial-author-info {
+            margin-left: 1rem;
+        }
+        
+        .testimonial-author-name {
+            font-weight: 600;
+        }
+        
+        .testimonial-author-role {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* CTA */
+        .final-cta {
+            background: linear-gradient(to right, #6366f1, #14b8a6);
+            border-radius: 1.5rem;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
+            color: white;
+            margin: 2rem;
+        }
+        
+        .cta-title {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.15rem;
+            max-width: 420px;
+            margin: 0 auto 2rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        @media (min-width: 640px) {
+            .cta-buttons {
+                flex-direction: row;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3.5rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        .footer-brand {
+            grid-column: span 2;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-brand {
+                grid-column: span 1;
+            }
+        }
+        
+        .footer-links h4 {
+            font-weight: 600;
+            font-size: 22px;
+            margin-bottom: 1rem;
+            color: var(--text);
+            transition: 0.4s ease-in-out;
+        }
+        
+        
+        .footer-links a, .footer-links div {
+            display: block;
+            color: var(--text);
+            font-size: 18px;
+            margin-bottom: 0.35rem;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        
+        .footer-links div:hover {
+            color: #60a5fa;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            gap: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-bottom {
+                flex-direction: row;
+            }
+        }
+
+        /* Modals */
+        .modal {
+            animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal-overlay.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            width: 100%;
+            max-width: 640px;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .modal-body {
+            padding: 1.75rem;
+        }
+        
+        /* Upload Modal */
+        .upload-modal {
+            max-width: 520px;
+        }
+        
+        .upload-tabs {
+            display: flex;
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 9999px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .upload-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .upload-tab.active {
+            background: var(--bg-secondary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 0.375rem;
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            font-size: 0.95rem;
+            background: var(--bg-tertiary);
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+        
+        .file-drop {
+            border: 2px dashed var(--border);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--bg-tertiary);
+        }
+        
+        .file-drop:hover {
+            border-color: #6366f1;
+        }
+        
+        .file-drop i {
+            font-size: 2rem;
+            color: #6366f1;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .toast {
+            max-width: 320px;
+            padding: 0.875rem 1.25rem;
+            border-radius: 9999px;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            animation: slideUp 0.4s ease forwards;
+        }
+        
+        .toast.success {
+            background: #166534;
+            color: #4ade80;
+            border: 1px solid #14532d;
+        }
+        
+        .toast.error {
+            background: #7f1d1d;
+            color: #f87171;
+            border: 1px solid #991b1b;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Keyboard Shortcuts Modal */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+        
+        .shortcut-key {
+            background: var(--bg-secondary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            border: 1px solid var(--border);
+        }
+
+        /* My Library */
+        .library-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+        }
+        
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .library-card {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <span class="logo-text">Qubby</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="nav-links">
+                    <a href="#discover" class="nav-link">Discover</a>
+                    <a href="#notes" class="nav-link">Notes</a>
+                    <a href="#courses" class="nav-link">Courses</a>
+                    <a href="#study" class="nav-link">Study</a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input id="nav-search" type="text" placeholder="Search notes, courses, or topics...">
+                </div>
+
+                <!-- Right Side Actions -->
+                <div class="nav-actions">
+                    <!-- Theme Toggle -->
+                    <button onclick="toggleTheme()" class="theme-toggle" title="Toggle theme (or press T)">
+                        <i class="fa-solid fa-moon" id="theme-icon"></i>
+                    </button>
+
+                    <!-- Upload Button -->
+                    <button onclick="showUploadModal()" class="upload-btn">
+                        <i class="fa-solid fa-cloud-upload-alt"></i>
+                        <span>Upload</span>
+                    </button>
+
+                    <!-- User Avatar -->
+                    <div class="avatar" onclick="showProfileMenu()">
+                        <img src="https://picsum.photos/id/1005/36/36" alt="Your avatar">
+                        <span class="avatar-name hidden lg:block">Aryan</span>
+                    </div>
+
+                    <!-- Mobile Menu -->
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <i class="fa-solid fa-bars fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu">
+            <a href="#discover">Discover</a>
+            <a href="#notes">Notes</a>
+            <a href="#courses">Courses</a>
+            <a href="#study">Study Tools</a>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                <button onclick="showUploadModal()" 
+                        style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #6366f1; color: white; padding: 0.875rem; border-radius: 9999px; font-weight: 600; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-cloud-upload-alt"></i>
+                    <span>Upload Notes or Course</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+
+                <h1 class="hero-title">
+                    Share knowledge.<br>
+                    <span style="color: rgba(255,255,255,0.9);">Study smarter.</span><br>
+                    Succeed together.
+                </h1>
+                
+                <p class="hero-subtitle">
+                    The most beautiful platform for students to share notes, 
+                    upload structured courses, and study collaboratively.
+                </p>
+
+                <div class="hero-buttons">
+                    <button onclick="document.getElementById('notes').scrollIntoView({ behavior: 'smooth' })" 
+                            class="btn btn-primary">
+                        <span>Browse Notes</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    
+                    <button onclick="showUploadModal()" class="btn btn-outline">
+                        <i class="fa-solid fa-upload"></i>
+                        <span>Upload a Course</span>
+                    </button>
+                </div>
+
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>Free to use</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>Verified content</span>
+                    </div>
+                    <div class="hero-feature">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span>Instant access</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATS SECTION -->
+    <div class="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                    <div>
+                        <div id="stat-notes" class="stat-number">184392</div>
+                        <div class="stat-label">Notes Shared</div>
+                    </div>
+                    <i class="fa-solid fa-file-lines" style="font-size: 2rem; color: #6366f1;"></i>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                    <div>
+                        <div id="stat-courses" class="stat-number">12480</div>
+                        <div class="stat-label">Courses Uploaded</div>
+                    </div>
+                    <i class="fa-solid fa-chalkboard-teacher" style="font-size: 2rem; color: #14b8a6;"></i>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                    <div>
+                        <div id="stat-students" class="stat-number">892340</div>
+                        <div class="stat-label">Active Students</div>
+                    </div>
+                    <i class="fa-solid fa-users" style="font-size: 2rem; color: #6366f1;"></i>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div style="display: flex; align-items: baseline; justify-content: space-between;">
+                    <div>
+                        <div style="display: flex; align-items: baseline;">
+                            <div id="stat-rating" class="stat-number">4.96</div>
+                            <span style="color: #10b981; margin-left: 0.25rem; font-size: 1.5rem;">★</span>
+                        </div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+                    <i class="fa-solid fa-tachometer-alt" style="font-size: 2rem; color: #14b8a6;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DISCOVER / FEATURES -->
+    <section id="discover" class="container">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; margin-bottom: 2.5rem; gap: 1rem;">
+            <div>
+                <span style="display: inline-block; padding: 0.25rem 1rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; background: #312e81; color: white; border-radius: 9999px;">WHY Qubby?</span>
+                <h2 class="section-header" style="margin-top: 0.75rem;">Built for students,<br>by students.</h2>
+            </div>
+            <p style="max-width: 420px; color: var(--text-secondary);">Everything you need to collaborate, organize, and master your subjects in one beautiful space.</p>
+        </div>
+
+        <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="feature-icon indigo">
+                    <i class="fa-solid fa-share-alt fa-2x"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Seamless Note Sharing</h3>
+                <p style="color: var(--text-secondary);">Upload handwritten notes, PDFs, or typed documents. Add tags, categorize by subject and topic. Search instantly with smart filters.</p>
+                <div style="margin-top: 1.25rem; font-size: 0.75rem; font-weight: 600; color: #6366f1;">2.4M notes shared this month</div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="feature-icon teal">
+                    <i class="fa-solid fa-play-circle fa-2x"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Structured Course Uploads</h3>
+                <p style="color: var(--text-secondary);">Create beautiful multi-module courses complete with video lessons, PDFs, quizzes, and downloadable resources. Monetize or share for free.</p>
+                <div style="margin-top: 1.25rem; font-size: 0.75rem; font-weight: 600; color: #14b8a6;">12.4k courses published</div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="feature-icon violet">
+                    <i class="fa-solid fa-users fa-2x"></i>
+                </div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Collaborative Study Rooms</h3>
+                <p style="color: var(--text-secondary);">Join live study sessions, share screens, discuss in real-time, create group notes, and stay accountable with friends or classmates.</p>
+                <div style="margin-top: 1.25rem; font-size: 0.75rem; font-weight: 600; color: #a78bfa;">87k study rooms created today</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRENDING NOTES -->
+    <section id="notes">
+        <div class="container">
+            <div class="notes-header">
+                <div>
+                    <h2 class="section-header">Trending Notes</h2>
+                    <p style="color: var(--text-secondary);">Most downloaded this week • Updated live</p>
+                </div>
+                
+                <!-- Filter Tabs -->
+                <div class="filter-tabs">
+                    <button onclick="filterNotes('all')" class="filter-btn active" data-filter="all">All</button>
+                    <button onclick="filterNotes('math')" class="filter-btn" data-filter="math">Mathematics</button>
+                    <button onclick="filterNotes('cs')" class="filter-btn" data-filter="cs">Computer Science</button>
+                    <button onclick="filterNotes('science')" class="filter-btn" data-filter="science">Science</button>
+                </div>
+            </div>
+
+            <!-- Notes Grid -->
+            <div class="notes-grid" id="notes-grid">
+                
+                <!-- Note Card 1 -->
+                <div class="note-card" data-subject="math">
+                    <div class="note-image">
+                        <img src="https://picsum.photos/id/1015/400/240" alt="Calculus Notes">
+                        <div class="note-badge math">Mathematics</div>
+                        <div class="note-downloads">
+                            <i class="fa-solid fa-download" style="color: #4ade80; font-size: 0.75rem;"></i>
+                            <span>48.2k</span>
+                        </div>
+                    </div>
+                    <div class="note-content">
+                        <h4 class="note-title">Advanced Calculus - Integration Techniques</h4>
+                        <div class="note-author">
+                            <img src="https://picsum.photos/id/1005/22/22" alt="">
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">by <span style="font-weight: 600; color: var(--text);">Arjun Patel</span></span>
+                        </div>
+                        
+                        <div class="note-meta">
+                            <div class="note-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <span style="margin-left: 4px; font-weight: 700;">4.98</span>
+                            </div>
+                            <div class="note-verified">
+                                <i class="fa-solid fa-check-double" style="font-size: 0.75rem;"></i>
+                                <span style="font-weight: 500; margin-left: 4px;">Verified</span>
+                            </div>
+                        </div>
+                        
+                        <div class="note-actions">
+                            <button onclick="previewNote(1)" class="btn-preview">Preview</button>
+                            <button onclick="downloadNote(this)" class="btn-download">Download</button>
+                            <button onclick="saveNoteToLibrary(1, this)" class="btn-download" style="flex: 0.6; padding: 0.625rem;">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Note Card 2 -->
+                <div class="note-card" data-subject="cs">
+                    <div class="note-image">
+                        <img src="https://picsum.photos/id/180/400/240" alt="Data Structures">
+                        <div class="note-badge cs">Computer Science</div>
+                        <div class="note-downloads">
+                            <i class="fa-solid fa-download" style="color: #4ade80; font-size: 0.75rem;"></i>
+                            <span>31.7k</span>
+                        </div>
+                    </div>
+                    <div class="note-content">
+                        <h4 class="note-title">Data Structures &amp; Algorithms Cheatsheet</h4>
+                        <div class="note-author">
+                            <img src="https://picsum.photos/id/1011/22/22" alt="">
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">by <span style="font-weight: 600; color: var(--text);">Sneha Kapoor</span></span>
+                        </div>
+                        
+                        <div class="note-meta">
+                            <div class="note-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <span style="margin-left: 4px; font-weight: 700;">4.95</span>
+                            </div>
+                            <div class="note-verified">
+                                <i class="fa-solid fa-check-double" style="font-size: 0.75rem;"></i>
+                                <span style="font-weight: 500; margin-left: 4px;">Verified</span>
+                            </div>
+                        </div>
+                        
+                        <div class="note-actions">
+                            <button onclick="previewNote(2)" class="btn-preview">Preview</button>
+                            <button onclick="downloadNote(this)" class="btn-download">Download</button>
+                            <button onclick="saveNoteToLibrary(2, this)" class="btn-download" style="flex: 0.6; padding: 0.625rem;">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Note Card 3 -->
+                <div class="note-card" data-subject="science">
+                    <div class="note-image">
+                        <img src="https://picsum.photos/id/251/400/240" alt="Organic Chemistry">
+                        <div class="note-badge science">Science</div>
+                        <div class="note-downloads">
+                            <i class="fa-solid fa-download" style="color: #4ade80; font-size: 0.75rem;"></i>
+                            <span>19.4k</span>
+                        </div>
+                    </div>
+                    <div class="note-content">
+                        <h4 class="note-title">Organic Chemistry Reactions Map</h4>
+                        <div class="note-author">
+                            <img src="https://picsum.photos/id/201/22/22" alt="">
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">by <span style="font-weight: 600; color: var(--text);">Rohan Mehra</span></span>
+                        </div>
+                        
+                        <div class="note-meta">
+                            <div class="note-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <span style="margin-left: 4px; font-weight: 700;">4.89</span>
+                            </div>
+                            <div class="note-verified">
+                                <i class="fa-solid fa-check-double" style="font-size: 0.75rem;"></i>
+                                <span style="font-weight: 500; margin-left: 4px;">Verified</span>
+                            </div>
+                        </div>
+                        
+                        <div class="note-actions">
+                            <button onclick="previewNote(3)" class="btn-preview">Preview</button>
+                            <button onclick="downloadNote(this)" class="btn-download">Download</button>
+                            <button onclick="saveNoteToLibrary(3, this)" class="btn-download" style="flex: 0.6; padding: 0.625rem;">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Note Card 4 -->
+                <div class="note-card" data-subject="math">
+                    <div class="note-image">
+                        <img src="https://picsum.photos/id/160/400/240" alt="Linear Algebra">
+                        <div class="note-badge math">Mathematics</div>
+                        <div class="note-downloads">
+                            <i class="fa-solid fa-download" style="color: #4ade80; font-size: 0.75rem;"></i>
+                            <span>27.9k</span>
+                        </div>
+                    </div>
+                    <div class="note-content">
+                        <h4 class="note-title">Linear Algebra - Eigenvalues &amp; Eigenvectors</h4>
+                        <div class="note-author">
+                            <img src="https://picsum.photos/id/1009/22/22" alt="">
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">by <span style="font-weight: 600; color: var(--text);">Ishita Rao</span></span>
+                        </div>
+                        
+                        <div class="note-meta">
+                            <div class="note-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <span style="margin-left: 4px; font-weight: 700;">4.92</span>
+                            </div>
+                            <div class="note-verified">
+                                <i class="fa-solid fa-check-double" style="font-size: 0.75rem;"></i>
+                                <span style="font-weight: 500; margin-left: 4px;">Verified</span>
+                            </div>
+                        </div>
+                        
+                        <div class="note-actions">
+                            <button onclick="previewNote(4)" class="btn-preview">Preview</button>
+                            <button onclick="downloadNote(this)" class="btn-download">Download</button>
+                            <button onclick="saveNoteToLibrary(4, this)" class="btn-download" style="flex: 0.6; padding: 0.625rem;">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Note Card 5 -->
+                <div class="note-card" data-subject="cs">
+                    <div class="note-image">
+                        <img src="https://picsum.photos/id/201/400/240" alt="System Design">
+                        <div class="note-badge cs">Computer Science</div>
+                        <div class="note-downloads">
+                            <i class="fa-solid fa-download" style="color: #4ade80; font-size: 0.75rem;"></i>
+                            <span>14.8k</span>
+                        </div>
+                    </div>
+                    <div class="note-content">
+                        <h4 class="note-title">System Design Interview Notes 2025</h4>
+                        <div class="note-author">
+                            <img src="https://picsum.photos/id/29/22/22" alt="">
+                            <span style="font-size: 0.75rem; color: var(--text-secondary);">by <span style="font-weight: 600; color: var(--text);">Vikram Singh</span></span>
+                        </div>
+                        
+                        <div class="note-meta">
+                            <div class="note-rating">
+                                <i class="fa-solid fa-star"></i>
+                                <span style="margin-left: 4px; font-weight: 700;">4.87</span>
+                            </div>
+                            <div class="note-verified">
+                                <i class="fa-solid fa-check-double" style="font-size: 0.75rem;"></i>
+                                <span style="font-weight: 500; margin-left: 4px;">Verified</span>
+                            </div>
+                        </div>
+                        
+                        <div class="note-actions">
+                            <button onclick="previewNote(5)" class="btn-preview">Preview</button>
+                            <button onclick="downloadNote(this)" class="btn-download">Download</button>
+                            <button onclick="saveNoteToLibrary(5, this)" class="btn-download" style="flex: 0.6; padding: 0.625rem;">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <button onclick="document.getElementById('notes').scrollIntoView({behavior:'smooth'})" 
+                        style="display: inline-flex; align-items: center; font-size: 0.875rem; font-weight: 600; color: #6366f1; background: none; border: none; cursor: pointer;">
+                    View all 184k notes 
+                    <i class="fa-solid fa-arrow-right-long" style="margin-left: 0.5rem;"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED COURSES -->
+    <section id="courses" class="container">
+        <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem;">
+            <div>
+                <h2 class="section-header">Featured Courses</h2>
+                <p style="color: var(--text-secondary);">Handpicked by top educators • New this month</p>
+            </div>
+            <a href="#" style="display: none; align-items: center; font-size: 0.875rem; font-weight: 600; color: #6366f1; text-decoration: none;">
+                Browse all courses <i class="fa-solid fa-arrow-right" style="margin-left: 0.5rem;"></i>
+            </a>
+        </div>
+
+        <div class="courses-grid">
+            
+            <!-- Course Card 1 -->
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://picsum.photos/id/160/600/200" alt="Machine Learning Course">
+                    <div class="course-price" style="color: #4ade80;">Free</div>
+                </div>
+                <div class="course-content">
+                    <span class="course-subject cs">Computer Science</span>
+                    <h4 class="course-title">Machine Learning Fundamentals</h4>
+                    <div class="course-instructor">
+                        <img src="https://picsum.photos/id/1005/26/26" alt="">
+                        <span style="font-size: 0.75rem;">Dr. Ananya Rao • <span style="font-weight: 500;">IIT Delhi</span></span>
+                    </div>
+                    
+                    <div class="course-meta">
+                        <div><i class="fa-solid fa-play"></i> 42 lessons</div>
+                        <div><i class="fa-solid fa-users"></i> 64.2k enrolled</div>
+                    </div>
+                    
+                    <button onclick="enrollInCourse(1)" class="course-btn free">Enroll for Free</button>
+                </div>
+            </div>
+
+            <!-- Course Card 2 -->
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://picsum.photos/id/251/600/200" alt="Organic Chemistry Course">
+                    <div class="course-price" style="color: #4ade80;">Free</div>
+                </div>
+                <div class="course-content">
+                    <span class="course-subject science">Science</span>
+                    <h4 class="course-title">Organic Chemistry Mastery</h4>
+                    <div class="course-instructor">
+                        <img src="https://picsum.photos/id/201/26/26" alt="">
+                        <span style="font-size: 0.75rem;">Prof. Meera Iyer • <span style="font-weight: 500;">IISc Bangalore</span></span>
+                    </div>
+                    
+                    <div class="course-meta">
+                        <div><i class="fa-solid fa-play"></i> 68 lessons</div>
+                        <div><i class="fa-solid fa-users"></i> 41.8k enrolled</div>
+                    </div>
+                    
+                    <button onclick="enrollInCourse(2)" class="course-btn free">Enroll for Free</button>
+                </div>
+            </div>
+
+            <!-- Course Card 3 -->
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://picsum.photos/id/180/600/200" alt="Web Development Course">
+                    <div class="course-price" style="color: #fbbf24;">₹999</div>
+                </div>
+                <div class="course-content">
+                    <span class="course-subject cs">Computer Science</span>
+                    <h4 class="course-title">Full-Stack Web Development 2025</h4>
+                    <div class="course-instructor">
+                        <img src="https://picsum.photos/id/29/26/26" alt="">
+                        <span style="font-size: 0.75rem;">Karan Malhotra • <span style="font-weight: 500;">Ex-Google</span></span>
+                    </div>
+                    
+                    <div class="course-meta">
+                        <div><i class="fa-solid fa-play"></i> 95 lessons</div>
+                        <div><i class="fa-solid fa-users"></i> 29.4k enrolled</div>
+                    </div>
+                    
+                    <button onclick="enrollInCourse(3)" class="course-btn paid">Enroll Now</button>
+                </div>
+            </div>
+
+            <!-- Course Card 4 -->
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="https://picsum.photos/id/1016/600/200" alt="Physics Course">
+                    <div class="course-price" style="color: #4ade80;">Free</div>
+                </div>
+                <div class="course-content">
+                    <span class="course-subject physics">Physics</span>
+                    <h4 class="course-title">Quantum Mechanics for Beginners</h4>
+                    <div class="course-instructor">
+                        <img src="https://picsum.photos/id/1009/26/26" alt="">
+                        <span style="font-size: 0.75rem;">Dr. Sameer Khan • <span style="font-weight: 500;">TIFR</span></span>
+                    </div>
+                    
+                    <div class="course-meta">
+                        <div><i class="fa-solid fa-play"></i> 31 lessons</div>
+                        <div><i class="fa-solid fa-users"></i> 18.7k enrolled</div>
+                    </div>
+                    
+                    <button onclick="enrollInCourse(4)" class="course-btn free">Enroll for Free</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STUDY TOOLS / POMODORO -->
+    <section id="study" class="container">
+        <div class="study-section">
+            <div class="study-content">
+                <!-- Left content -->
+                <div class="study-left">
+                    <div class="study-badge">STUDY SMARTER</div>
+                    <h2 class="study-title">Built-in Study Tools</h2>
+                    <p class="study-desc">Stay focused with our beautiful Pomodoro timer, flashcard system, and collaborative whiteboards.</p>
+                    
+                    <div class="study-buttons">
+                        <button onclick="startPomodoro()" class="btn" style="background: white; color: #0f172a; padding: 0.875rem 1.75rem; font-weight: 600; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>Start Focus Session</span>
+                        </button>
+                        
+                        <button onclick="showFlashcards()" class="btn" style="background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.875rem 1.5rem; font-weight: 500; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span>Practice Flashcards</span>
+                        </button>
+                    </div>
+
+                    <!-- Pomodoro Settings -->
+                    <div class="pomodoro-settings">
+                        <label>Focus time:</label>
+                        <input type="number" id="focus-minutes" value="25" min="5" max="120" style="width: 60px;">
+                        <span>min</span>
+                        <button onclick="updatePomodoroTime()" style="padding: 4px 10px; font-size: 0.75rem; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 6px; color: var(--text); cursor: pointer;">Set</button>
+                    </div>
+                </div>
+                
+                <!-- Timer Widget -->
+                <div style="flex: 7; width: 100%;">
+                    <div class="study-timer-widget">
+                        <div class="timer-header">
+                            <div>
+                                <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.6); font-weight: 700;">CURRENT SESSION</div>
+                                <div style="font-size: 1.35rem; font-weight: 600;">Focus Mode • Physics</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="color: #4ade80; font-size: 0.75rem; font-weight: 700;">STREAK: <span id="streak-count">17</span> DAYS</div>
+                            </div>
+                        </div>
+                        
+                        <div id="timer-display" class="timer-display">25:00</div>
+                        
+                        <div class="timer-controls">
+                            <button onclick="startPomodoro()" id="timer-start-btn" class="timer-btn start">
+                                <i class="fa-solid fa-play"></i> <span>START</span>
+                            </button>
+                            <button onclick="pausePomodoro()" class="timer-btn secondary">PAUSE</button>
+                            <button onclick="resetPomodoro()" class="timer-btn secondary">RESET</button>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 1.5rem;">
+                            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5);">Next break in <span style="font-family: monospace; color: white;">24:12</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Library Section -->
+        <div id="my-library-section" class="library-section" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 1.25rem; font-weight: 600;">My Saved Notes</h3>
+                <button onclick="clearLibrary()" style="font-size: 0.75rem; padding: 6px 12px; background: #7f1d1d; color: #f87171; border: none; border-radius: 6px; cursor: pointer;">Clear All</button>
+            </div>
+            <div id="library-grid" class="library-grid"></div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="container">
+        <div style="text-align: center; margin-bottom: 2.5rem;">
+            <span style="display: inline-block; padding: 0.25rem 1rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; background: #14532d; color: #4ade80; border-radius: 9999px;">LOVED BY STUDENTS</span>
+            <h2 class="section-header" style="margin-top: 0.75rem;">Real students. Real results.</h2>
+        </div>
+        
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                </div>
+                <blockquote class="testimonial-text">"ScholarShare completely changed how I study. I found perfect notes for my JEE prep and even uploaded my own chemistry notes which got 38k downloads!"</blockquote>
+                <div class="testimonial-author">
+                    <img src="https://picsum.photos/id/1005/42/42" alt="">
+                    <div class="testimonial-author-info">
+                        <div class="testimonial-author-name">Ananya Mehra</div>
+                        <div class="testimonial-author-role">JEE Aspirant • Class 12 • Delhi</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <blockquote class="testimonial-text">"I uploaded my full-stack development course last semester. It now has over 52k students enrolled. The platform makes it so easy to structure modules and quizzes."</blockquote>
+                <div class="testimonial-author">
+                    <img src="https://picsum.photos/id/1011/42/42" alt="">
+                    <div class="testimonial-author-info">
+                        <div class="testimonial-author-name">Ritesh Agarwal</div>
+                        <div class="testimonial-author-role">Final Year CS • BITS Pilani</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <blockquote class="testimonial-text">"The collaborative study rooms are a game changer. My study group meets every evening. We share notes live and the Pomodoro timer keeps us all accountable."</blockquote>
+                <div class="testimonial-author">
+                    <img src="https://picsum.photos/id/201/42/42" alt="">
+                    <div class="testimonial-author-info">
+                        <div class="testimonial-author-name">Zoya Khan</div>
+                        <div class="testimonial-author-role">Medical Student • AIIMS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FINAL CTA -->
+    <div class="container">
+        <div class="final-cta">
+            <div style="max-width: 420px; margin: 0 auto;">
+                <h2 class="cta-title">Ready to level up?</h2>
+                <p class="cta-subtitle">Join over 890,000 students who are already sharing, learning, and growing together.</p>
+                
+                <div class="cta-buttons">
+                    <button onclick="showUploadModal()" class="btn" style="background: white; color: #6366f1; padding: 1rem 2.25rem; font-weight: 700; border-radius: 9999px;">
+                        Start Sharing Today
+                    </button>
+                    <button onclick="document.getElementById('study').scrollIntoView({ behavior: 'smooth' })" class="btn" style="background: transparent; color: white; border: 1px solid rgba(255,255,255,0.5); padding: 1rem 2rem; font-weight: 600; border-radius: 9999px;">
+                        Try Study Tools
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                        <div style="width: 32px; height: 32px; background: #6366f1; border-radius: 1rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-solid fa-graduation-cap" style="color: white;"></i>
+                        </div>
+                        <span class="logo-text" style="font-size: 1.5rem;">Qubby</span>
+                    </div>
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); max-width: 220px;">The most loved platform for student collaboration.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <div>Notes Library</div>
+                    <div>Courses</div>
+                    <div>Study Rooms</div>
+                    <div>AI Study Assistant</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <div>Student Leaders</div>
+                    <div>Campus Ambassadors</div>
+                    <div>Discord Community</div>
+                    <div>Blog &amp; Resources</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <div>About Us</div>
+                    <div>Careers</div>
+                    <div>Press</div>
+                    <div>Trust &amp; Safety</div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <div>Help Center</div>
+                    <div>Guidelines</div>
+                    <div>Contact</div>
+                    <div>Status</div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div>© 2026 Qubby. Built with ❤️ for students everywhere.</div>
+                <div style="display: flex; gap: 1.25rem;">
+                    <div>Privacy</div>
+                    <div>Terms</div>
+                    <div>Accessibility</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- NOTE PREVIEW MODAL -->
+    <div id="note-modal" class="modal-overlay" onclick="if (event.target.id === 'note-modal') hideNoteModal()">
+        <div onclick="event.stopImmediatePropagation()" class="modal-content modal" style="max-width: 620px;">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div id="modal-subject-badge" style="padding: 0.25rem 0.875rem; font-size: 0.75rem; font-weight: 700; border-radius: 9999px;"></div>
+                    <div>
+                        <span id="modal-author" style="font-size: 0.875rem; font-weight: 600;"></span>
+                    </div>
+                </div>
+                <button onclick="hideNoteModal()" style="font-size: 1.75rem; line-height: 1; color: #94a3b8; background: none; border: none; cursor: pointer;">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <h3 id="modal-title" style="font-size: 1.75rem; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 0.25rem;"></h3>
+                <div style="display: flex; align-items: center; gap: 1rem; font-size: 0.875rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; align-items: center; color: #4ade80;">
+                        <i class="fa-solid fa-check-double" style="margin-right: 0.375rem;"></i> 
+                        <span style="font-weight: 500;">Verified by Qubby</span>
+                    </div>
+                    <div id="modal-stats" style="color: var(--text-secondary);"></div>
+                </div>
+                
+                <div style="background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <div id="modal-content" style="color: #cbd5e1; line-height: 1.7; font-size: 0.95rem;">
+                        <!-- Dynamic content injected via JS -->
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 0.75rem;">
+                    <button onclick="downloadCurrentNote()" 
+                            style="flex: 1; padding: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: #6366f1; color: white; font-weight: 600; border-radius: 9999px; border: none; cursor: pointer;">
+                        <i class="fa-solid fa-download"></i>
+                        <span>Download PDF</span>
+                    </button>
+                    <button onclick="saveToLibrary()" 
+                            style="flex: 1; padding: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: var(--bg-tertiary); color: var(--text); font-weight: 600; border: 1px solid var(--border); border-radius: 9999px; cursor: pointer;">
+                        <i class="fa-solid fa-bookmark"></i>
+                        <span>Save to Library</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPLOAD MODAL -->
+    <div id="upload-modal" class="modal-overlay" onclick="if (event.target.id === 'upload-modal') hideUploadModal()">
+        <div onclick="event.stopImmediatePropagation()" class="modal-content upload-modal modal">
+            <div class="modal-header">
+                <div>
+                    <span style="font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.025em;">Upload to Qubby</span>
+                </div>
+                <button onclick="hideUploadModal()" style="font-size: 1.75rem; color: #64748b; background: none; border: none; cursor: pointer; line-height: 1;">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Upload Type Toggle -->
+                <div class="upload-tabs">
+                    <div onclick="switchUploadType(0)" id="upload-type-note" class="upload-tab active">Notes</div>
+                    <div onclick="switchUploadType(1)" id="upload-type-course" class="upload-tab">Course</div>
+                </div>
+                
+                <form id="upload-form" onsubmit="handleUpload(event)">
+                    <div class="form-group">
+                        <label class="form-label">TITLE</label>
+                        <input type="text" id="upload-title" required placeholder="e.g. Calculus Integration Notes" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">DESCRIPTION</label>
+                        <textarea id="upload-desc" rows="3" placeholder="Short description of what students will learn..." class="form-textarea"></textarea>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                        <div class="form-group">
+                            <label class="form-label">SUBJECT</label>
+                            <select id="upload-category" class="form-select">
+                                <option value="Mathematics">Mathematics</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Biology">Biology</option>
+                                <option value="History">History</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">TAGS (comma separated)</label>
+                            <input type="text" id="upload-tags" placeholder="JEE, Integration, Calculus" class="form-input">
+                        </div>
+                    </div>
+                    
+                    <!-- File Upload -->
+                    <div class="form-group">
+                        <label class="form-label">UPLOAD FILE</label>
+                        <div class="file-drop" onclick="document.getElementById('upload-file').click()">
+                            <input type="file" id="upload-file" class="hidden" accept=".pdf,.doc,.docx,.ppt,.pptx" style="display: none;">
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <i class="fa-solid fa-cloud-upload-alt"></i>
+                                <div style="font-weight: 500; font-size: 0.9rem;">Drop file here or <span style="color: #6366f1;">browse</span></div>
+                                <div id="file-name" style="font-size: 0.75rem; color: #4ade80; margin-top: 0.5rem; font-weight: 500; display: none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 0.75rem; margin-top: 1.75rem;">
+                        <button type="button" onclick="hideUploadModal()" 
+                                style="flex: 1; padding: 0.875rem; font-weight: 600; border: 1px solid var(--border); background: var(--bg-tertiary); border-radius: 9999px; cursor: pointer;">Cancel</button>
+                        <button type="submit" 
+                                style="flex: 1; padding: 0.875rem; background: #6366f1; color: white; font-weight: 600; border-radius: 9999px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                            <i class="fa-solid fa-upload"></i>
+                            <span>Publish Now</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div id="shortcuts-modal" class="modal-overlay" onclick="if (event.target.id === 'shortcuts-modal') document.getElementById('shortcuts-modal').style.display='none'">
+        <div onclick="event.stopImmediatePropagation()" class="modal-content modal" style="max-width: 500px;">
+            <div class="modal-header">
+                <span style="font-weight: 600; font-size: 1.25rem;">Keyboard Shortcuts</span>
+                <button onclick="document.getElementById('shortcuts-modal').style.display='none'" style="font-size: 1.5rem; color: #64748b; background: none; border: none; cursor: pointer;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="shortcuts-grid">
+                    <div class="shortcut-item"><span>Search</span> <span class="shortcut-key">/</span></div>
+                    <div class="shortcut-item"><span>Toggle Theme</span> <span class="shortcut-key">T</span></div>
+                    <div class="shortcut-item"><span>Close Modal</span> <span class="shortcut-key">Esc</span></div>
+                    <div class="shortcut-item"><span>Start Pomodoro</span> <span class="shortcut-key">P</span></div>
+                    <div class="shortcut-item"><span>Show Shortcuts</span> <span class="shortcut-key">?</span></div>
+                    <div class="shortcut-item"><span>Upload</span> <span class="shortcut-key">U</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script>
+        // ==================== THEME ====================
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            
+            if (document.documentElement.style.getPropertyValue('--bg') === '#f8fafc') {
+                setDarkMode();
+            } else {
+                setLightMode();
+            }
+        }
+        
+        function setDarkMode() {
+            const root = document.documentElement;
+            root.style.setProperty('--bg', '#0f172a');
+            root.style.setProperty('--bg-secondary', '#1e2937');
+            root.style.setProperty('--bg-tertiary', '#334155');
+            root.style.setProperty('--text', '#f1f5f9');
+            root.style.setProperty('--text-secondary', '#94a3b8');
+            root.style.setProperty('--border', '#334155');
+            root.style.setProperty('--card-bg', '#1e2937');
+            root.style.setProperty('--hover-bg', '#334155');
+            
+            document.getElementById('theme-icon').className = 'fa-solid fa-moon';
+            localStorage.setItem('theme', 'dark');
+        }
+        
+        function setLightMode() {
+            const root = document.documentElement;
+            root.style.setProperty('--bg', '#f8fafc');
+            root.style.setProperty('--bg-secondary', '#ffffff');
+            root.style.setProperty('--bg-tertiary', '#f1f5f9');
+            root.style.setProperty('--text', '#1e2937');
+            root.style.setProperty('--text-secondary', '#64748b');
+            root.style.setProperty('--border', '#e2e8f0');
+            root.style.setProperty('--card-bg', '#ffffff');
+            root.style.setProperty('--hover-bg', '#f1f5f9');
+            
+            document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+            localStorage.setItem('theme', 'light');
+        }
+        
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'light') {
+                setLightMode();
+            } else if (savedTheme === 'dark' || prefersDark) {
+                setDarkMode();
+            } else {
+                setDarkMode(); // Default to dark
+            }
+            
+            // Listen for system theme changes
+            if (window.matchMedia) {
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                    if (!localStorage.getItem('theme')) {
+                        if (e.matches) setDarkMode();
+                        else setLightMode();
+                    }
+                });
+            }
+        }
+
+        // ==================== KEYBOARD SHORTCUTS ====================
+        function initKeyboardShortcuts() {
+            document.addEventListener('keydown', function(e) {
+                // Search focus
+                if (e.key === '/' && document.activeElement.tagName === "BODY") {
+                    e.preventDefault();
+                    document.getElementById('nav-search').focus();
+                }
+                
+                // Theme toggle
+                if (e.key.toLowerCase() === 't' && document.activeElement.tagName === "BODY") {
+                    e.preventDefault();
+                    toggleTheme();
+                }
+                
+                // Close modals with Esc
+                if (e.key === 'Escape') {
+                    const modals = document.querySelectorAll('.modal-overlay');
+                    modals.forEach(modal => {
+                        if (modal.style.display === 'flex') {
+                            modal.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // Start Pomodoro
+                if (e.key.toLowerCase() === 'p' && document.activeElement.tagName === "BODY") {
+                    e.preventDefault();
+                    startPomodoro();
+                }
+                
+                // Show shortcuts
+                if (e.key === '?' && document.activeElement.tagName === "BODY") {
+                    e.preventDefault();
+                    document.getElementById('shortcuts-modal').style.display = 'flex';
+                }
+                
+                // Upload
+                if (e.key.toLowerCase() === 'u' && document.activeElement.tagName === "BODY") {
+                    e.preventDefault();
+                    showUploadModal();
+                }
+            });
+            
+            // Show shortcuts modal on first visit (optional)
+            if (!localStorage.getItem('shortcutsShown')) {
+                setTimeout(() => {
+                    // Uncomment if you want to show it automatically
+                    // document.getElementById('shortcuts-modal').style.display = 'flex';
+                    // localStorage.setItem('shortcutsShown', 'true');
+                }, 8000);
+            }
+        }
+
+        // ==================== POMODORO CUSTOMIZATION ====================
+        let pomodoroMinutes = 25;
+        
+        function updatePomodoroTime() {
+            const input = document.getElementById('focus-minutes');
+            const newTime = parseInt(input.value);
+            
+            if (newTime >= 5 && newTime <= 120) {
+                pomodoroMinutes = newTime;
+                timeLeft = pomodoroMinutes * 60;
+                updateTimerDisplay();
+                showToast(`Pomodoro set to ${pomodoroMinutes} minutes`, "success");
+            } else {
+                showToast("Please enter between 5 and 120 minutes", "error");
+            }
+        }
+
+        // ==================== MY LIBRARY (Persistent with localStorage) ====================
+        let savedNotes = JSON.parse(localStorage.getItem('savedNotes') || '[]');
+        
+        function saveNoteToLibrary(noteId, buttonElement) {
+            const note = noteData[noteId];
+            if (!note) return;
+            
+            // Check if already saved
+            if (savedNotes.find(n => n.id === noteId)) {
+                showToast("Already saved to your library!", "success");
+                return;
+            }
+            
+            savedNotes.push({
+                id: noteId,
+                title: note.title,
+                author: note.author,
+                subject: note.subject,
+                savedAt: new Date().toISOString()
+            });
+            
+            localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+            
+            // Update button
+            if (buttonElement) {
+                buttonElement.innerHTML = `<i class="fa-solid fa-check"></i>`;
+                buttonElement.disabled = true;
+            }
+            
+            showToast("Note saved to My Library!", "success");
+            updateLibraryUI();
+        }
+        
+        function saveToLibrary() {
+            if (!currentNoteId) return;
+            hideNoteModal();
+            
+            setTimeout(() => {
+                const note = noteData[currentNoteId];
+                if (note) {
+                    if (!savedNotes.find(n => n.id === currentNoteId)) {
+                        savedNotes.push({
+                            id: currentNoteId,
+                            title: note.title,
+                            author: note.author,
+                            subject: note.subject,
+                            savedAt: new Date().toISOString()
+                        });
+                        localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+                        showToast("Note saved to My Library!", "success");
+                        updateLibraryUI();
+                    } else {
+                        showToast("Already in your library!", "success");
+                    }
+                }
+            }, 300);
+        }
+        
+        function updateLibraryUI() {
+            const section = document.getElementById('my-library-section');
+            const grid = document.getElementById('library-grid');
+            
+            if (savedNotes.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+            
+            section.style.display = 'block';
+            grid.innerHTML = '';
+            
+            savedNotes.forEach((note, index) => {
+                const card = document.createElement('div');
+                card.className = 'library-card';
+                card.innerHTML = `
+                    <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">${note.title}</div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.75rem;">by ${note.author}</div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button onclick="previewSavedNote(${note.id})" style="flex: 1; padding: 6px; font-size: 0.75rem; background: #6366f1; color: white; border: none; border-radius: 6px; cursor: pointer;">View</button>
+                        <button onclick="removeFromLibrary(${index}, this)" style="padding: 6px 10px; font-size: 0.75rem; background: #7f1d1d; color: #f87171; border: none; border-radius: 6px; cursor: pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        function previewSavedNote(noteId) {
+            previewNote(noteId);
+        }
+        
+        function removeFromLibrary(index, element) {
+            savedNotes.splice(index, 1);
+            localStorage.setItem('savedNotes', JSON.stringify(savedNotes));
+            updateLibraryUI();
+            showToast("Note removed from library", "success");
+        }
+        
+        function clearLibrary() {
+            if (confirm("Clear all saved notes?")) {
+                savedNotes = [];
+                localStorage.removeItem('savedNotes');
+                updateLibraryUI();
+                showToast("Library cleared", "success");
+            }
+        }
+
+        // ==================== REST OF THE ORIGINAL FUNCTIONALITY ====================
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('show');
+        }
+        
+        // Animated Counters
+        function animateCounter(element, target, duration = 1800) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    clearInterval(timer);
+                    if (element.id === 'stat-rating') {
+                        element.innerHTML = target.toFixed(2);
+                    } else {
+                        element.innerHTML = Math.floor(target).toLocaleString();
+                    }
+                } else {
+                    if (element.id === 'stat-rating') {
+                        element.innerHTML = current.toFixed(2);
+                    } else {
+                        element.innerHTML = Math.floor(current).toLocaleString();
+                    }
+                }
+            }, 16);
+        }
+        
+        function initCounters() {
+            const notesEl = document.getElementById('stat-notes');
+            const coursesEl = document.getElementById('stat-courses');
+            const studentsEl = document.getElementById('stat-students');
+            const ratingEl = document.getElementById('stat-rating');
+            
+            const observer = new IntersectionObserver((entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(notesEl, 184392);
+                        animateCounter(coursesEl, 12480);
+                        animateCounter(studentsEl, 892340);
+                        animateCounter(ratingEl, 4.96);
+                        observer.disconnect();
+                    }
+                });
+            }), { threshold: 0.6 });
+            
+            observer.observe(notesEl);
+        }
+        
+        // Note Preview Modal
+        let currentNoteId = null;
+        
+        const noteData = {
+            1: {
+                title: "Advanced Calculus - Integration Techniques",
+                author: "Arjun Patel",
+                subject: "Mathematics",
+                subjectColor: "#451a03",
+                subjectTextColor: "#fbbf24",
+                downloads: "48.2k",
+                rating: "4.98",
+                content: `
+                    <h4 style="font-weight: 600; margin-bottom: 0.75rem;">Key Topics Covered:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Integration by Parts</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Trigonometric Substitution</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Partial Fractions</li>
+                        <li style="display: flex; align-items: flex-start;"><span style="display: inline-block; width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Definite Integrals &amp; Applications</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #94a3b8;">Includes 28 solved examples + practice problems with detailed solutions.</p>
+                `
+            },
+            2: {
+                title: "Data Structures & Algorithms Cheatsheet",
+                author: "Sneha Kapoor",
+                subject: "Computer Science",
+                subjectColor: "#1e3a8a",
+                subjectTextColor: "#60a5fa",
+                downloads: "31.7k",
+                rating: "4.95",
+                content: `
+                    <h4 style="font-weight: 600; margin-bottom: 0.75rem;">Quick Reference Guide:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Time &amp; Space Complexity Cheat Sheet</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Array, Linked List, Stack, Queue</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Trees, Graphs &amp; Hashing</li>
+                        <li style="display: flex; align-items: flex-start;"><span style="display: inline-block; width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Sorting &amp; Searching Algorithms</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #94a3b8;">Perfect for coding interviews. Updated for 2025.</p>
+                `
+            },
+            3: {
+                title: "Organic Chemistry Reactions Map",
+                author: "Rohan Mehra",
+                subject: "Science",
+                subjectColor: "#14532d",
+                subjectTextColor: "#4ade80",
+                downloads: "19.4k",
+                rating: "4.89",
+                content: `
+                    <h4 style="font-weight: 600; margin-bottom: 0.75rem;">Complete Reaction Pathways:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> SN1 / SN2 / E1 / E2 Mechanisms</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Aldehydes, Ketones &amp; Carboxylic Acids</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Named Reactions (Grignard, Wittig, etc.)</li>
+                        <li style="display: flex; align-items: flex-start;"><span style="display: inline-block; width: 6px; height: 6px; background: #4ade80; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Stereochemistry &amp; Mechanisms</li>
+                    </ul>
+                `
+            },
+            4: {
+                title: "Linear Algebra - Eigenvalues & Eigenvectors",
+                author: "Ishita Rao",
+                subject: "Mathematics",
+                subjectColor: "#451a03",
+                subjectTextColor: "#fbbf24",
+                downloads: "27.9k",
+                rating: "4.92",
+                content: `
+                    <h4 style="font-weight: 600; margin-bottom: 0.75rem;">Core Concepts:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Characteristic Equation &amp; Cayley-Hamilton Theorem</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Diagonalization of Matrices</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Applications in Differential Equations</li>
+                        <li style="display: flex; align-items: flex-start;"><span style="display: inline-block; width: 6px; height: 6px; background: #fbbf24; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> 35 Solved Problems with Steps</li>
+                    </ul>
+                `
+            },
+            5: {
+                title: "System Design Interview Notes 2025",
+                author: "Vikram Singh",
+                subject: "Computer Science",
+                subjectColor: "#1e3a8a",
+                subjectTextColor: "#60a5fa",
+                downloads: "14.8k",
+                rating: "4.87",
+                content: `
+                    <h4 style="font-weight: 600; margin-bottom: 0.75rem;">Interview Ready Notes:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Scalability, Availability &amp; Consistency</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Database Sharding &amp; Replication</li>
+                        <li style="display: flex; align-items: flex-start; margin-bottom: 0.5rem;"><span style="display: inline-block; width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Caching Strategies &amp; CDNs</li>
+                        <li style="display: flex; align-items: flex-start;"><span style="display: inline-block; width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; margin-top: 8px; margin-right: 10px;"></span> Real-world Case Studies (Uber, Netflix, etc.)</li>
+                    </ul>
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #94a3b8;">Used by 140+ students who cracked MAANG interviews.</p>
+                `
+            }
+        };
+        
+        function previewNote(noteId) {
+            const modal = document.getElementById('note-modal');
+            const data = noteData[noteId];
+            if (!data) return;
+            
+            currentNoteId = noteId;
+            
+            document.getElementById('modal-title').innerHTML = data.title;
+            document.getElementById('modal-author').innerHTML = `by ${data.author}`;
+            
+            const badge = document.getElementById('modal-subject-badge');
+            badge.innerHTML = data.subject;
+            badge.style.background = data.subjectColor;
+            badge.style.color = data.subjectTextColor;
+            
+            document.getElementById('modal-stats').innerHTML = `${data.downloads} downloads • ${data.rating} ★`;
+            document.getElementById('modal-content').innerHTML = data.content;
+            
+            modal.style.display = 'flex';
+        }
+        
+        function hideNoteModal() {
+            const modal = document.getElementById('note-modal');
+            modal.style.display = 'none';
+        }
+        
+        function downloadNote(element) {
+            const originalText = element.innerHTML;
+            element.innerHTML = `<i class="fa-solid fa-check" style="margin-right: 4px;"></i> Downloaded!`;
+            element.disabled = true;
+            
+            setTimeout(() => {
+                showToast("Note downloaded successfully! Check your downloads folder.", "success");
+                element.innerHTML = originalText;
+                element.disabled = false;
+            }, 1400);
+        }
+        
+        function downloadCurrentNote() {
+            hideNoteModal();
+            setTimeout(() => {
+                showToast("Downloading PDF... Thank you for using ScholarShare!", "success");
+            }, 300);
+        }
+        
+        // Upload Modal
+        let uploadType = 0;
+        
+        function showUploadModal() {
+            const modal = document.getElementById('upload-modal');
+            modal.style.display = 'flex';
+            switchUploadType(0);
+            
+            const fileInput = document.getElementById('upload-file');
+            const fileNameEl = document.getElementById('file-name');
+            
+            fileInput.onchange = function() {
+                if (this.files.length > 0) {
+                    fileNameEl.innerHTML = this.files[0].name;
+                    fileNameEl.style.display = 'block';
+                }
+            };
+        }
+        
+        function hideUploadModal() {
+            const modal = document.getElementById('upload-modal');
+            modal.style.display = 'none';
+            document.getElementById('upload-form').reset();
+            document.getElementById('file-name').style.display = 'none';
+        }
+        
+        function switchUploadType(type) {
+            uploadType = type;
+            const noteTab = document.getElementById('upload-type-note');
+            const courseTab = document.getElementById('upload-type-course');
+            
+            if (type === 0) {
+                noteTab.classList.add('active');
+                courseTab.classList.remove('active');
+            } else {
+                courseTab.classList.add('active');
+                noteTab.classList.remove('active');
+            }
+        }
+        
+        function handleUpload(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('upload-title').value;
+            const fileInput = document.getElementById('upload-file');
+            
+            if (!title) {
+                showToast("Please enter a title", "error");
+                return;
+            }
+            
+            if (fileInput.files.length === 0) {
+                showToast("Please select a file to upload", "error");
+                return;
+            }
+            
+            const btns = e.target.querySelectorAll('button');
+            btns.forEach(b => b.disabled = true);
+            
+            const originalText = btns[1].innerHTML;
+            btns[1].innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Uploading...`;
+            
+            setTimeout(() => {
+                hideUploadModal();
+                
+                const typeText = uploadType === 0 ? "Note" : "Course";
+                showToast(`${typeText} published successfully! Thank you for contributing to the community.`, "success");
+                
+                if (uploadType === 0) {
+                    setTimeout(() => {
+                        showToast("Your note is now live in the Trending section!", "success");
+                    }, 2200);
+                }
+                
+                btns[1].innerHTML = originalText;
+                btns.forEach(b => b.disabled = false);
+            }, 1850);
+        }
+        
+        // Toast Notification
+        function showToast(message, type = "success") {
+            const container = document.getElementById('toast-container');
+            
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            toast.innerHTML = `
+                <div style="display: flex; align-items: center; flex: 1;">
+                    <i class="fa-solid ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}" style="margin-right: 12px; font-size: 1.1rem;"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.3s ease';
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    toast.remove();
+                }, 200);
+            }, 3800);
+        }
+        
+        // Filter Notes
+        function filterNotes(filter) {
+            const cards = document.querySelectorAll('#notes-grid .note-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-filter') === filter) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            cards.forEach(card => {
+                if (filter === 'all') {
+                    card.style.display = '';
+                } else {
+                    if (card.dataset.subject === filter) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        // Enroll in Course
+        function enrollInCourse(courseId) {
+            showToast("Enrollment successful! Welcome to the course. Check your dashboard.", "success");
+            
+            setTimeout(() => {
+                showToast("You've earned 150 XP for enrolling in your first course!", "success");
+            }, 2400);
+        }
+        
+        // Pomodoro Timer
+        let timerInterval = null;
+        let timeLeft = 25 * 60;
+        let isRunning = false;
+        
+        function updateTimerDisplay() {
+            const display = document.getElementById('timer-display');
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function startPomodoro() {
+            if (isRunning) return;
+            
+            isRunning = true;
+            const startBtn = document.getElementById('timer-start-btn');
+            if (startBtn) startBtn.innerHTML = `<i class="fa-solid fa-pause"></i> <span>RUNNING</span>`;
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    showToast("Great focus session! Time for a 5-minute break.", "success");
+                    
+                    // Increase streak
+                    increaseStreak();
+                    
+                    timeLeft = 5 * 60;
+                    updateTimerDisplay();
+                    
+                    setTimeout(() => {
+                        showToast("Break over. Ready for another focus round?", "success");
+                        resetPomodoro();
+                    }, 5000);
+                }
+            }, 1000);
+        }
+        
+        function pausePomodoro() {
+            if (!isRunning) return;
+            clearInterval(timerInterval);
+            isRunning = false;
+            
+            const startBtn = document.getElementById('timer-start-btn');
+            if (startBtn) startBtn.innerHTML = `<i class="fa-solid fa-play"></i> <span>RESUME</span>`;
+        }
+        
+        function resetPomodoro() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timeLeft = pomodoroMinutes * 60;
+            updateTimerDisplay();
+            
+            const startBtn = document.getElementById('timer-start-btn');
+            if (startBtn) startBtn.innerHTML = `<i class="fa-solid fa-play"></i> <span>START</span>`;
+        }
+        
+        function updatePomodoroTimeFromInput() {
+            const input = document.getElementById('focus-minutes');
+            if (input) {
+                pomodoroMinutes = parseInt(input.value) || 25;
+            }
+        }
+
+        // Streak System
+        function increaseStreak() {
+            let streak = parseInt(localStorage.getItem('studyStreak') || '17');
+            streak++;
+            localStorage.setItem('studyStreak', streak.toString());
+            
+            const streakEl = document.getElementById('streak-count');
+            if (streakEl) streakEl.textContent = streak;
+        }
+        
+        function initStreak() {
+            const streak = localStorage.getItem('studyStreak') || '17';
+            const streakEl = document.getElementById('streak-count');
+            if (streakEl) streakEl.textContent = streak;
+        }
+
+        // Flashcards Demo
+        function showFlashcards() {
+            const modalHTML = `
+                <div id="flashcard-modal" onclick="document.getElementById('flashcard-modal').remove()" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 120; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+                    <div onclick="event.stopImmediatePropagation()" style="background: var(--card-bg); border: 1px solid var(--border); width: 100%; max-width: 420px; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);">
+                        <div style="padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border);">
+                            <div>
+                                <span style="font-weight: 600;">Quick Flashcards</span>
+                                <span style="font-size: 0.75rem; margin-left: 0.5rem; padding: 2px 8px; background: #14532d; color: #4ade80; border-radius: 9999px;">Physics • 12 cards</span>
+                            </div>
+                            <button onclick="document.getElementById('flashcard-modal').remove()" style="font-size: 1.75rem; color: #64748b; background: none; border: none; cursor: pointer; line-height: 1;">&times;</button>
+                        </div>
+                        
+                        <div style="padding: 2rem;">
+                            <div id="flashcard" onclick="flipCard(this)" style="cursor: pointer; background: linear-gradient(to bottom right, #1e2937, #0f172a); color: white; height: 220px; display: flex; align-items: center; justify-content: center; border-radius: 1.5rem; text-align: center; padding: 2rem; position: relative; border: 1px solid var(--border);">
+                                <div id="flashcard-front">
+                                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; color: rgba(255,255,255,0.5);">QUESTION</div>
+                                    <div style="font-size: 1.35rem; font-weight: 600; line-height: 1.3;">What is the SI unit of force?</div>
+                                </div>
+                                <div id="flashcard-back" style="display: none; position: absolute; inset: 0; align-items: center; justify-content: center; padding: 2rem; background: linear-gradient(to bottom right, #166534, #14532d); border-radius: 1.5rem;">
+                                    <div>
+                                        <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; color: rgba(255,255,255,0.6);">ANSWER</div>
+                                        <div style="font-size: 1.75rem; font-weight: 700;">Newton (N)</div>
+                                        <div style="font-size: 0.75rem; margin-top: 1rem; color: rgba(255,255,255,0.7);">1 N = 1 kg·m/s²</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; font-size: 0.75rem;">
+                                <button onclick="prevCard()" style="padding: 0.5rem 1.25rem; display: flex; align-items: center; gap: 0.5rem; color: #94a3b8; background: none; border: none; cursor: pointer;"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                                
+                                <div style="font-family: monospace; font-size: 0.75rem; padding: 0.25rem 1rem; background: var(--bg-tertiary); color: #94a3b8; border-radius: 9999px;">3 / 12</div>
+                                
+                                <button onclick="nextCard()" style="padding: 0.5rem 1.25rem; display: flex; align-items: center; gap: 0.5rem; color: #4ade80; background: none; border: none; cursor: pointer; font-weight: 500;">Next <i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        }
+        
+        let currentCard = 0;
+        const flashcards = [
+            { q: "What is the SI unit of force?", a: "Newton (N)" },
+            { q: "What is the acceleration due to gravity on Earth?", a: "Approximately 9.8 m/s²" },
+            { q: "State Newton's First Law of Motion", a: "An object at rest stays at rest unless acted upon by an unbalanced force." }
+        ];
+        
+        function flipCard(cardElement) {
+            const front = document.getElementById('flashcard-front');
+            const back = document.getElementById('flashcard-back');
+            
+            if (front.style.display === 'none') {
+                front.style.display = 'block';
+                back.style.display = 'none';
+                cardElement.style.background = 'linear-gradient(to bottom right, #1e2937, #0f172a)';
+            } else {
+                front.style.display = 'none';
+                back.style.display = 'block';
+                cardElement.style.background = 'linear-gradient(to bottom right, #166534, #14532d)';
+            }
+        }
+        
+        function nextCard() {
+            currentCard = (currentCard + 1) % flashcards.length;
+            updateFlashcard();
+        }
+        
+        function prevCard() {
+            currentCard = (currentCard - 1 + flashcards.length) % flashcards.length;
+            updateFlashcard();
+        }
+        
+        function updateFlashcard() {
+            const front = document.getElementById('flashcard-front');
+            const back = document.getElementById('flashcard-back');
+            
+            if (!front || !back) return;
+            
+            front.innerHTML = `
+                <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; color: rgba(255,255,255,0.5);">QUESTION</div>
+                <div style="font-size: 1.35rem; font-weight: 600; line-height: 1.3;">${flashcards[currentCard].q}</div>
+            `;
+            
+            back.innerHTML = `
+                <div>
+                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.75rem; color: rgba(255,255,255,0.6);">ANSWER</div>
+                    <div style="font-size: 1.75rem; font-weight: 700;">${flashcards[currentCard].a}</div>
+                </div>
+            `;
+            
+            front.style.display = 'block';
+            back.style.display = 'none';
+            document.getElementById('flashcard').style.background = 'linear-gradient(to bottom right, #1e2937, #0f172a)';
+        }
+        
+        // Profile menu
+        function showProfileMenu() {
+            document.querySelectorAll('.profile-menu').forEach(el => el.remove());
+            
+            const menu = document.createElement('div');
+            menu.className = 'profile-menu';
+            menu.style.cssText = `position: absolute; right: 2rem; top: 72px; width: 260px; background: var(--card-bg); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3); border: 1px solid var(--border); border-radius: 1.5rem; padding: 0.5rem 0; z-index: 90; font-size: 0.875rem;`;
+            
+            menu.innerHTML = `
+                <div style="padding: 0.75rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid var(--border);">
+                    <img src="https://picsum.photos/id/1005/36/36" style="width: 36px; height: 36px; border-radius: 1rem;" alt="">
+                    <div>
+                        <div style="font-weight: 600;">Priya Sharma</div>
+                        <div style="font-size: 0.75rem; color: #4ade80;">Class 12 • Science</div>
+                    </div>
+                </div>
+                <div style="padding: 0.25rem 0;">
+                    <div style="padding: 0.6rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'"><i class="fa-solid fa-user" style="width: 16px;"></i> <span>Profile</span></div>
+                    <div style="padding: 0.6rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'"><i class="fa-solid fa-book" style="width: 16px;"></i> <span>My Library (${savedNotes.length})</span></div>
+                    <div style="padding: 0.6rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'"><i class="fa-solid fa-chart-line" style="width: 16px;"></i> <span>Study Stats</span></div>
+                    <div style="padding: 0.6rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'"><i class="fa-solid fa-cog" style="width: 16px;"></i> <span>Settings</span></div>
+                </div>
+                <div style="border-top: 1px solid var(--border); padding-top: 0.25rem;">
+                    <div onclick="logoutDemo()" style="padding: 0.6rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; cursor: pointer; color: #f87171;" onmouseover="this.style.background='#7f1d1d'" onmouseout="this.style.background='transparent'"><i class="fa-solid fa-sign-out-alt" style="width: 16px;"></i> <span>Sign out</span></div>
+                </div>
+            `;
+            
+            document.body.appendChild(menu);
+            
+            setTimeout(() => {
+                document.addEventListener('click', function handler(ev) {
+                    if (!menu.contains(ev.target)) {
+                        menu.remove();
+                        document.removeEventListener('click', handler);
+                    }
+                }, { once: true });
+            }, 50);
+        }
+        
+        function logoutDemo() {
+            document.querySelectorAll('.profile-menu').forEach(el => el.remove());
+            showToast("Logged out successfully. See you soon!", "success");
+        }
+        
+        // Search functionality
+        function initSearch() {
+            const searchInput = document.getElementById('nav-search');
+            
+            searchInput.addEventListener('input', function() {
+                const term = this.value.toLowerCase().trim();
+                const cards = document.querySelectorAll('#notes-grid .note-card');
+                
+                if (!term) {
+                    cards.forEach(c => c.style.display = '');
+                    return;
+                }
+                
+                cards.forEach(card => {
+                    const titleEl = card.querySelector('.note-title');
+                    const authorEl = card.querySelector('.note-author span span');
+                    
+                    const title = titleEl ? titleEl.innerText.toLowerCase() : '';
+                    const author = authorEl ? authorEl.innerText.toLowerCase() : '';
+                    
+                    if (title.includes(term) || author.includes(term)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === '/' && document.activeElement.tagName === "BODY") {
+                    e.preventDefault();
+                    searchInput.focus();
+                }
+            });
+        }
+        
+        function initFilters() {
+            const allFilter = document.querySelector('.filter-btn[data-filter="all"]');
+            if (allFilter) {
+                allFilter.classList.add('active');
+            }
+        }
+        
+        function initializeApp() {
+            initTheme();
+            initCounters();
+            initSearch();
+            initFilters();
+            initKeyboardShortcuts();
+            initStreak();
+            updateTimerDisplay();
+            updateLibraryUI();
+            
+            // Set initial pomodoro value
+            const focusInput = document.getElementById('focus-minutes');
+            if (focusInput) focusInput.value = pomodoroMinutes;
+            
+            // File input for upload
+            const fileInput = document.getElementById('upload-file');
+            if (fileInput) {
+                fileInput.addEventListener('change', function() {
+                    const fileNameEl = document.getElementById('file-name');
+                    if (this.files.length > 0 && fileNameEl) {
+                        fileNameEl.innerHTML = this.files[0].name;
+                        fileNameEl.style.display = 'block';
+                    }
+                });
+            }
+            
+            // Easter egg
+            const logo = document.querySelector('.logo');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    showToast("Thanks for exploring ScholarShare! You're awesome.", "success");
+                });
+            }
+            
+            console.log('%c[ScholarShare] Enhanced Dark Mode version initialized successfully.', 'color:#64748b');
+        }
+        
+        window.onload = initializeApp;
+        window.ScholarShare = { 
+            showUploadModal, 
+            previewNote, 
+            startPomodoro, 
+            toggleTheme,
+            showFlashcards 
+        };
+    </script>
+</body>
+</html>
+``` 

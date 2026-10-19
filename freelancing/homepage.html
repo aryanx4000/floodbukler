@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance Portal</title>
+    <style>
+        :root {
+            --accent: #93d3ae;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f0f0f;
+            margin: 0;
+            overflow-x: hidden;
+            color: white;
+            line-height: 1.5;
+        }
+        
+        
+
+        /* ========== NEW STICKY MEGA NAV ========== */
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: mediumpurple;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+            padding: 12px 0;
+        }
+
+        .nav-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 1.85rem;
+            font-weight: 900;
+            color: white;
+            cursor: pointer;
+            letter-spacing: -1px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.03);
+        }
+
+        .logo span {
+            color: #0f0f0f;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            height: 48px;
+            padding: 0 20px;
+            font-size: 15px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.18);
+            color: #0f0f0f;
+            transform: translateY(-1px);
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        /* MEGA MENU */
+        .mega-menu {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 880px;
+            max-width: 95vw;
+            background: #1a1a1a;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            padding: 28px 32px;
+            display: none;
+            z-index: 1001;
+            border: 1px solid #333;
+            animation: megaPop 0.2s ease forwards;
+        }
+
+        @keyframes megaPop {
+            from { opacity: 0; transform: translateX(-50%) translateY(15px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .nav-item:hover .mega-menu {
+            display: block;
+        }
+
+        .mega-header {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #333;
+        }
+
+        .mega-header h3 {
+            margin: 0 0 6px 0;
+            color: var(--accent);
+            font-size: 1.35rem;
+        }
+
+        .mega-header p {
+            margin: 0;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        .mega-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+        }
+
+        .mega-column h4 {
+            color: var(--accent);
+            font-size: 1.05rem;
+            margin: 0 0 14px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #333;
+        }
+
+        .mega-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mega-column li {
+            margin: 9px 0;
+        }
+
+        .mega-column a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            display: block;
+            padding: 4px 2px;
+            border-radius: 6px;
+        }
+
+        .mega-column a:hover {
+            color: var(--accent);
+            padding-left: 10px;
+            background: rgba(147, 211, 174, 0.08);
+        }
+
+        .mega-footer {
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+
+        .mega-footer button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .mega-footer button:hover {
+            background: var(--accent);
+            color: #0f0f0f;
+            transform: scale(1.05);
+        }
+
+        /* ========== ORIGINAL STYLES (kept & slightly adjusted) ========== */
+        .navetc {
+            background: mediumpurple;
+            min-height: 520px;
+            width: 100%;
+            border-radius: 0 0 30px 30px;
+            padding-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .first-img-con {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding: 40px 20px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-text-content {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            z-index: 5;
+        }
+
+        .first-img-con h1 {
+            color: #0f0f0f;
+            font-style: oblique;
+            font-size: clamp(42px, 8vw, 110px);
+            margin: 0 0 16px 0;
+            line-height: 1;
+            font-weight: 900;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .first-img-con p {
+            color: #0f0f0f;
+            max-width: 420px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        input, textarea, select {
+            height: 56px;
+            width: 100%;
+            border-radius: 16px;
+            border: 2px solid #333;
+            padding: 0 20px;
+            margin: 10px 0;
+            font-size: 1rem;
+            background: #111827;
+            color: white;
+            transition: border 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        textarea {
+            height: 120px;
+            padding: 16px 20px;
+            resize: vertical;
+        }
+
+        .popularskiil {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .popularskiil button {
+            height: 52px;
+            padding: 8px 18px;
+            background: #ffffff;
+            color: #0f0f0f;
+            border-radius: 12px;
+            border: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .popularskiil button:hover {
+            transform: scale(1.08) translateY(-3px);
+            background: #0f0f0f;
+            color: white;
+        }
+
+        .first-img-con img {
+            width: 320px;
+            max-width: 90%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
+            border-radius: 20px;
+        }
+
+        .seebelow {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0 30px 0;
+        }
+        
+        .seebelow img {
+            width: 200px;
+            height: 200px;
+            transition: all 0.4s ease;
+        }
+        
+        .seebelow img:hover {
+            transform: scale(1.25) rotate(8deg);
+            filter: drop-shadow(0 15px 20px rgba(147, 211, 174, 0.6));
+        }
+
+        /* Services Grid */
+        .service-section-container {
+            padding: 60px 20px 40px;
+            margin-top: -120px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .services {
+            background: #1a1a1a;
+            border-radius: 24px;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #333;
+        }
+
+        .services:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 2px 2px mediumaquamarine, 4px 4px mediumpurple;
+        }
+
+        .services img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+            border-radius: 18px;
+        }
+        
+        .services img:hover {
+            transform: scale(1.08);
+        }
+
+        .services button {
+            background: #333;
+            color: white;
+            padding: 10px 14px;
+            margin: 6px 4px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .services button:hover {
+            background: mediumpurple;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* Work Done Section */
+        .workdone {
+            padding: 80px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .workdonwimg {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .workdonwimg h1 {
+            font-size: 2.4rem;
+            margin-bottom: 30px;
+            line-height: 1.1;
+        }
+        
+        .workdone img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 24px;
+            transition: all 0.4s ease;
+        }
+        
+        .workdone img:hover {
+            transform: scale(1.04);
+            filter: drop-shadow(0 20px 25px rgba(255,255,255,0.2));
+        }
+
+        .workdone ul {
+            list-style: none;
+            padding: 0;
+            flex: 1;
+            min-width: 220px;
+        }
+        
+        #start {
+            background: mediumpurple;
+        }
+        
+        .workdone li {
+            margin: 16px 0;
+            color: #ccc;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+        
+        .workdone li:hover {
+            color: mediumpurple;
+            padding-left: 10px;
+            font-size: 1.12rem;
+        }
+
+        /* OVERLAY MODAL */
+        .find {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 15, 0.98);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .find.active {
+            display: block;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 48px;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+            transition: 0.3s;
+        }
+        
+        .close-btn:hover {
+            transform: rotate(90deg);
+            color: var(--accent);
+        }
+
+        .findskill-con {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px 40px 80px;
+        }
+
+        .howtoselect {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .select {
+            height: 120px;
+            background: #0f0f0f;
+            color: white;
+            padding: 10px 0px 15px 7px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            transition: 0.3s;
+        }
+        
+        .select:hover {
+            box-shadow: -5px 5px yellow, 10px 10px mediumpurple;
+        }
+        
+        .findskill img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+            transition: all 0.3s ease;
+        }
+        
+        .findskill img:hover {
+            transform: scale(1.08);
+        }
+        
+        .findskill {
+            background: #1a1a1a;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #333;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .findskill:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 35px rgba(147, 211, 174, 0.2);
+        }
+
+        /* Global Network */
+        .globalnetwork {
+            padding: 100px 20px;
+            text-align: center;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url('globalnetwork.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .globalnetwork ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        
+        .globalnetwork li { 
+            padding: 30px 24px;
+            border-radius: 20px;
+            width: 280px;
+            background: rgba(26, 26, 26, 0.85);
+            border: 1px solid #333;
+            transition: all 0.4s ease;
+        }
+        
+        .globalnetwork li:hover {
+            box-shadow: 5px 5px yellow, 10px 10px mediumpurple;
+            transform: translateY(-12px);
+            background: rgba(26, 26, 26, 0.95);
+        }
+
+        /* Guides */
+        .guides {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            padding: 60px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .guide {
+            border-radius: 22px;
+            overflow: hidden;
+            background: #1a1a1a;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+        }
+        
+        .guide:hover {
+            transform: translateY(-10px);
+            box-shadow: 1px 5px 3.5px 4px mediumpurple;
+        }
+
+        .guide img {
+            width: 100%;
+            aspect-ratio: 16 / 11;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+        
+        .guide:hover img {
+            transform: scale(1.08);
+        }
+        
+        .guide-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #moreGuides {
+            padding: 14px 32px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 20px auto 60px;
+        }
+        
+        #moreGuides:hover {
+            background: mediumpurple;
+            color: #0f0f0f;
+            transform: scale(1.08);
+        }
+
+        /* Profile Cards */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .profile-card {
+            width: 320px;
+            background: #111827;
+            color: white;
+            border-radius: 28px;
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .profile-card:hover {
+            transform: scale(1.06) translateY(-10px);
+            box-shadow: 0 25px 50px rgba(147, 211, 174, 0.25);
+        }
+    
+        .profile-card img {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 16px;
+            border: 4px solid mediumpurple;
+        }
+    
+        .profile-card h1 {
+            text-align: center;
+            margin: 12px 0 6px;
+            font-size: 1.5rem;
+        }
+    
+        .role {
+            text-align: center;
+            color: mediumpurple;
+            font-weight: 500;
+        }
+    
+        .skills {
+            margin-top: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .skills span:hover{
+                box-shadow: 2px 1px yellow, -5px 2px mediumpurple;
+        }
+        .skills span {
+            background: #1e293b;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+    
+        .btn {
+            width: 100%;
+            margin-top: 30px;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: mediumpurple;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-size: 1.05rem;
+        }
+    
+        .btn:hover {
+            background: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #111827;
+            padding: 80px 20px 40px;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-container h2 {
+            color: mediumpurple;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-container ul {
+            list-style: none;
+            padding: 0;
+            color: #ccc;
+        }
+        
+        .footer-container li {
+            margin: 12px 0;
+            transition: 0.2s;
+        }
+        
+        .footer-container li:hover {
+            color: white;
+            padding-left: 6px;
+        }
+        
+        .footer-container a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        #prev, #next {
+            background-color: white;
+            height: 70px;
+            width: 80px;
+            border: none;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        
+        #next:hover, #prev:hover {
+            corner-shape: scoop;
+        }
+
+        /* Profile Creation Form Styles */
+        .profile-form {
+            max-width: 620px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #ddd;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+            min-height: 40px;
+        }
+        
+        .skill-tag {
+            background: #1e293b;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .skill-tag .remove {
+            cursor: pointer;
+            font-weight: bold;
+            color: #f87171;
+        }
+        
+        .add-skill-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .add-skill-row input {
+            flex: 1;
+            margin: 0;
+        }
+        
+        .add-skill-row button {
+            background: var(--accent);
+            color: #0f0f0f;
+            border: none;
+            padding: 0 24px;
+            border-radius: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        .profile-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid mediumpurple;
+            margin: 10px auto;
+            display: block;
+        }
+        
+        .success-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #166534;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+        }
+
+        /* Responsive */
+        @media(max-width: 900px) {
+            .first-img-con {
+                flex-direction: column;
+                text-align: center;
+            }
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .mega-menu {
+                width: 95vw;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .mega-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .workdone ul {
+                min-width: 100%;
+            }
+            .main-nav {
+                gap: 4px;
+            }
+            .nav-link {
+                padding: 0 14px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service { 
+                grid-template-columns: 1fr; 
+            }
+            .mega-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== STICKY MEGA MENU NAV ========== -->
+    <header class="sticky-nav">
+        <div class="nav-wrapper">
+            <!-- Logo -->
+            <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                Freelance<span>Portal</span>
+            </div>
+
+            <!-- Main Navigation -->
+            <nav class="main-nav">
+                
+                <!-- MEGA MENU: Categories -->
+                <div class="nav-item has-mega">
+                    <button class="nav-link">Categories</button>
+                    
+                    <div class="mega-menu">
+                        <div class="mega-header">
+                            <h3>Explore 1500+ Categories</h3>
+                            <p>Find the perfect talent for any project</p>
+                        </div>
+                        
+                        <div class="mega-content">
+                            
+                            <!-- Column 1: Design & Creative -->
+                            <div class="mega-column">
+                                <h4>🎨 Design &amp; Creative</h4>
+                                <ul>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">3D Artist</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Graphic Design</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Illustration</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Logo &amp; Brand Identity</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">UI/UX Design</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Animation (3D)</a></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Column 2: Development & Tech -->
+                            <div class="mega-column">
+                                <h4>💻 Development &amp; Tech</h4>
+                                <ul>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Web Development</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Mobile App Development</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">AI &amp; Machine Learning</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Full Stack Development</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Backend &amp; APIs</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Software Architecture</a></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Column 3: Marketing & Media -->
+                            <div class="mega-column">
+                                <h4>📈 Marketing &amp; Media</h4>
+                                <ul>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Digital Marketing</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">SEO &amp; SEM</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Social Media Marketing</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Video Editing</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Content Writing</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Copywriting</a></li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Column 4: Business & Support -->
+                            <div class="mega-column">
+                                <h4>📋 Business &amp; Support</h4>
+                                <ul>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Data Entry &amp; Admin</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Virtual Assistance</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Translation</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Accounting &amp; Finance</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Research &amp; Analysis</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); openFindOverlay();">Consulting</a></li>
+                                </ul>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="mega-footer">
+                            <button onclick="document.querySelector('.mega-menu').style.display='none'; document.getElementById('findOverlay').classList.add('active'); document.body.style.overflow='hidden';">
+                                Browse All Freelancers →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Nav Items -->
+                <button id="find" class="nav-link">Find Freelancers</button>
+                <button id="findjobs" class="nav-link">Find Jobs</button>
+                <button id="aboutBtn" class="nav-link">About</button>
+                <button id="solutionBtn" class="nav-link">Solutions</button>
+                
+                <!-- NEW: Create Profile Button -->
+                <button id="createProfileBtn" class="nav-link" 
+                        style="background: var(--accent); color: #0f0f0f; font-weight: bold; margin-left: 8px;">
+                    + Create Profile
+                </button>
+            </nav>
+    </header>
+
+    <!-- HERO SECTION (purple background) -->
+    <div class="navetc">
+        <div class="first-img-con">
+            <img src="firstfreelance.png" alt="Freelance Hero">
+            <div class="hero-text-content">
+                <h1>FREELANCE</h1>
+                <p>A Freelance service web portal connects businesses with freelancers, facilitating project collaboration and hiring.</p>
+                <input type="text" placeholder="Search for any service">
+                <div class="popularskiil">
+                    <button id="option">Popular Skills:</button>
+                    <button>Web Design</button>
+                    <button>3D Artist</button>
+                    <button>Graphic Design</button>
+                    <button>Database</button>
+                    <button>Digital Marketing</button>
+                </div>
+            </div>
+            
+            <img src="firstfreelancer.png" alt="Hero Image">
+        </div>
+    </div>
+    
+    <div class="seebelow">
+        <img src="seebelow.png" alt="">
+    </div>
+
+    <div class="service-section-container" id="services">
+        <h2 style="text-align:center; font-size:2.2rem; margin-bottom:30px;">Popular Services</h2>
+        <div style="margin-bottom: 30px; text-align:center;">
+            <button id="prev" onclick="showprev()" style="margin:0 10px;">&larr; Prev</button>
+            <button id="next" onclick="shownext()" style="margin:0 10px;">Next &rarr;</button>
+        </div>
+        
+        <section id="one">
+            <div class="service">
+                <div class="services">
+                    <h2>3-D Artist</h2>
+                    <button>Game Design</button>
+                    <button>Ai Artist</button>
+                    <button>3D Modeling</button>
+                    <button>Animation (3D)</button>
+                    <button>Character Design</button>
+                </div>
+                <div class="services"><img src="https://i.pinimg.com/originals/f6/ea/9f/f6ea9fb2aaa0ed800afdca678611882d.jpg" alt=""></div>
+                <div class="services">
+                    <h2>Web Developer</h2>
+                    <button>Frontend</button>
+                    <button>Backend</button>
+                    <button>Full Stack</button>
+                </div>
+                <div class="services"><img src="https://learncodingusa.com/wp-content/uploads/2023/10/Concurrency-in-Coding-Multi-threading-Explained-1.jpg" alt=""></div>
+                <div class="services"><img src="https://miro.medium.com/v2/resize:fit:1200/1*tKII02Vcl2wvl7ZwaccSUg.jpeg" alt=""></div>
+                <div class="services">
+                    <h2>Graphic Design</h2>
+                    <button>Logo Design</button>
+                    <button>Brand Identity (Brand Kit)</button>
+                    <button>Social Media Posts</button>
+                    <button>Poster / Banner Design</button>
+                    <button>UI/UX Design</button>
+                    <button>Business Cards &amp; Stationery</button>
+                </div>
+                <div class="services"><img src="https://s34035.pcdn.co/wp-content/uploads/2024/07/Hero-Graphic-HP-v2.png" alt=""></div>
+                <div class="services">
+                    <h2>Digital Marketing</h2>
+                    <button>SEO</button>
+                    <button>Advertising</button>
+                    <button>Social Media Marketing (SMM)</button>
+                    <button>Google Ads / PPC</button>
+                    <button>Content Marketing</button>
+                    <button>Email Marketing</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="two" style="display:none;">
+            <div class="service">
+                <div class="services">
+                    <h2>Mobile Apps</h2>
+                    <button>Flutter</button>
+                    <button>Android App Development</button>
+                    <button>iOS App Development</button>
+                    <button>Cross-Platform Apps (Flutter / React Native)</button>
+                    <button>UI/UX for Mobile Apps</button>
+                </div>
+                <div class="services"><img src="mobileappdev.jpg" alt=""></div>
+                <div class="services">
+                    <h2>AI/ML</h2>
+                    <button>Python</button>
+                    <button>Machine Learning Models</button>
+                    <button>AI Chatbots</button>
+                    <button>Data Analysis</button>
+                    <button>Computer Vision</button>
+                    <button>Natural Language Processing (NLP)</button>
+                </div>
+                <div class="services"><img src="aiml.jpg" alt=""></div>
+                <div class="services"><img src="videoediting.jpg" alt=""></div>
+                <div class="services">
+                    <h2>Video Editing</h2>
+                    <button>Premiere</button>
+                    <button>YouTube Video Editing</button>
+                    <button>Reels / Shorts Editing</button>
+                    <button>Promotional Videos</button>
+                    <button>Corporate Videos</button>
+                    <button>Color Grading</button>
+                </div>
+                <div class="services"><img src="https://www.ringcentral.com/content/dam/rc-www/en_us/images/content/ab-tests/homepages/home_w/education.jpg" alt=""></div>
+                <div class="services">
+                    <h2>Writing</h2>
+                    <button>Blogs</button>
+                    <button>Blog Writing</button>
+                    <button>Article Writing</button>
+                    <button>Copywriting (Ads / Sales Pages)</button>
+                    <button>Website Content</button>
+                    <button>Technical Writing</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="workdone">
+        <div class="workdonwimg">
+            <h1>Get Work Done in <br> 1500 Different Categories</h1>
+            <img src="seecategories.png" alt="">
+        </div>
+
+        <ul>
+            <li>Website Design</li>
+            <li>Mobile Apps</li>
+            <li>Android Apps</li>
+            <li>iPhone Apps</li>
+            <li>Software Architecture</li>
+            <li>Graphic Design</li>
+            <li>Logo Design</li>
+            <li>Public Relations</li>
+            <li>Logistics</li>
+            <li>Proofreading</li>
+            <li>Translation</li>
+            <li>Research</li>
+            <li>Website Design</li>
+        </ul>
+        <ul>
+            <li>Research Writing</li>
+            <li>Article Writing</li>
+            <li>Web Scraping</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>HTML 5</li>
+            <li>Javascript</li>
+            <li>Data Processing</li>
+            <li>Python</li>
+            <li>Wordpress</li>
+            <li>Web Search</li>
+            <li>Finance</li>
+            <li>Banner Design</li>
+        </ul>
+        <ul>
+            <li>Manufacturing</li>
+            <li>Linux</li>
+            <li>Data Entry</li>
+            <li>Content Writing</li>
+            <li>Marketing</li>
+            <li>Excel</li>
+            <li>Ghostwritin</li>
+            <li>Copywriting</li>
+            <li>Accounting</li>
+            <li>MySQL</li>
+            <li>C++ Programming</li>
+            <li id="viewmore"><b>View More &rightarrow;</b></li>
+        </ul>
+    </div>
+
+    <!-- FIND FREELANCERS OVERLAY -->
+    <div class="find" id="findOverlay">
+        <button class="close-btn" id="closeOverlay">&times;</button>
+        <div class="findskill-con">
+            <div class="howtoselect">
+                <div class="select">
+                    <h2>By Skill</h2>
+                    <p>Looking for freelancer with specified skill?</p>
+                </div>
+                <div class="select">
+                    <h2>By Location</h2>
+                    <p>Search freelancers based on their location.</p>
+                </div>
+                <div class="select">
+                    <h2>By Category</h2>
+                    <p>Find freelancer that suit a specific project.</p>
+                </div>
+            </div>
+            <div class="findskill">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/83ea22184451955.655261d4be6dd.jpg" alt="">
+                <h2>Graphic Designers</h2>
+            </div>
+            <div class="findskill">
+                <img src="https://tint.creativemarket.com/hw40bJYBGRJhczJbisqtAlPxA_Pb-01CZYSt9640cwQ/width:440/height:292/gravity:nowe/rt:fill-down/el:1/czM6Ly9maWxlcy5jcmVhdGl2ZW1hcmtldC5jb20vaW1hZ2VzL3NjcmVlbnNob3RzL3Byb2R1Y3RzLzUzNzcvNTM3NzAvNTM3NzA1MTQvbGFwdG9wLXNjcmVlbi13ZWJzaXRlLW1vY2t1cC0yLSUyODMlMjktby5qcGcjMTc1MTA1MjY1MQ?1751052651" alt="">
+                <h2>Website Designer</h2>
+            </div>
+            <div class="findskill">
+                <img src="mobdev.jpg" alt="">
+                <h2>Mobile App Developer</h2>
+            </div>
+            <div class="findskill">
+                <img src="softwaredev.jpg" alt="">
+                <h2>Software Developer</h2>
+            </div>
+            <div class="findskill">
+                <img src="threeartist.jpg" alt="">
+                <h2>3D Artist</h2>
+            </div>
+            <div class="findskill">
+                <img src="illustration.jpg" alt="">
+                <h2>Illustrator</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIND JOBS OVERLAY -->
+    <div class="find" id="findJobsOverlay">
+        <button class="close-btn" id="closeJobsOverlay">&times;</button>
+        <div class="findskill-con">
+            <div class="howtoselect">
+                <div class="select">
+                    <h2>By Skill</h2>
+                    <p>Search for work that requires specific skills.</p>
+                </div>
+                <div class="select">
+                    <h2>By Language</h2>
+                    <p>Find projects that are in your language</p>
+                </div>
+                <div class="select">
+                    <h2>Featured Jobs</h2>
+                    <p>Explore our handpicked job opportunities.</p>
+                </div>
+            </div>
+            <div class="findskill">
+                <img src="websitejobs.jpg" alt="">
+                <h2>Website Jobs</h2>
+            </div>
+            <div class="findskill">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/479016220052721.67bd956fee068.png" alt="">
+                <h2>Mobile App Developer Jobs</h2>
+            </div>
+            <div class="findskill">
+                <img src="graphicdesignjobs.jpg" alt="">
+                <h2>Graphic Designer Jobs</h2>
+            </div>
+            <div class="findskill">
+                <img src="https://news24online.com/wp-content/uploads/2024/08/cropped-Working.jpg?w= alt="">
+                <h2>Data Entry Jobs</h2>
+            </div>
+            <div class="findskill">
+                <img src="internetmarketing.jpg" alt="">
+                <h2>Internet Marketing Jobs</h2>
+            </div>
+            <div class="findskill">
+                <img src="https://img.magnific.com/premium-photo/delivery-driver-loading-cardboard-boxes-into-van_1302613-14894.jpg" alt="">
+                <h2>Local Jobs</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== NEW: CREATE PROFILE OVERLAY ========== -->
+    <div class="find" id="createProfileOverlay">
+        <button class="close-btn" id="closeCreateProfile">&times;</button>
+        
+        <div style="max-width: 680px; margin: 20px auto; background: #1a1a1a; border-radius: 28px; padding: 40px 50px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h2 style="font-size: 2.4rem; color: var(--accent); margin: 0 0 8px;">Create Your Profile</h2>
+                <p style="color: #aaa; margin: 0;">Join thousands of freelancers and get hired today</p>
+            </div>
+
+            <div class="profile-form">
+                <!-- Profile Picture -->
+                <div class="form-group" style="text-align: center;">
+                    <label>Profile Picture</label>
+                    <img id="profilePreview" src="https://i.pravatar.cc/150?img=12" alt="Preview" class="profile-preview">
+                    <input type="text" id="profileImageUrl" placeholder="Paste image URL (or leave default)" 
+                           value="https://i.pravatar.cc/150?img=12" style="max-width: 400px; margin: 10px auto; display: block;">
+                </div>
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label>Full Name <span style="color:#f87171">*</span></label>
+                    <input type="text" id="profileName" placeholder="e.g. Alex Rivera" required>
+                </div>
+
+                <!-- Title -->
+                <div class="form-group">
+                    <label>Professional Title <span style="color:#f87171">*</span></label>
+                    <input type="text" id="profileTitle" placeholder="e.g. Full Stack Developer &amp; UI Designer" required>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-group">
+                    <label>Skills (add at least 3)</label>
+                    <div class="add-skill-row">
+                        <input type="text" id="skillInput" placeholder="e.g. React, Figma, Python">
+                        <button type="button" onclick="addSkill()">+ Add</button>
+                    </div>
+                    <div id="skillTags" class="skill-tags"></div>
+                </div>
+
+                <!-- Bio -->
+                <div class="form-group">
+                    <label>Short Bio / About Me</label>
+                    <textarea id="profileBio" placeholder="Tell clients about your experience, passion, and what you're great at..."></textarea>
+                </div>
+
+                <!-- Optional Rate -->
+                <div class="form-group">
+                    <label>Hourly Rate (optional)</label>
+                    <input type="text" id="profileRate" placeholder="$45 / hr">
+                </div>
+
+                <button onclick="createProfile()" 
+                        style="width: 100%; padding: 18px; background: var(--accent); color: #0f0f0f; border: none; border-radius: 16px; font-size: 1.15rem; font-weight: bold; cursor: pointer; margin-top: 10px; transition: all 0.3s;">
+                    Publish My Profile →
+                </button>
+                
+                <p style="text-align:center; color:#666; font-size:0.85rem; margin-top:20px;">
+                    Your profile will appear instantly on the site for clients to discover.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="successToast" class="success-toast">
+        ✅ Profile created successfully! Scroll down to see it.
+    </div>
+
+    <div class="globalnetwork">
+        <h2 style="font-size: 2.8rem; margin-bottom: 20px;">Tap Into A Global Talent Network</h2>
+        <ul>
+            <li>
+                <h2>Post Your Job</h2>
+                <p>Get lots of competitive bids that suit your budget in minutes. Start making your dreams reality</p>
+            </li>
+            <li>
+                <h2>Find Freelancers</h2>
+                <p>No job is too big or complex. We've got freelancers for jobs of any size or budget, across 2700+ skills. Let our talent bring your ideas to life.</p>
+            </li>
+            <li>
+                <h2>Pay Safely</h2>
+                <p>Only pay for work when you are 100% satisfied with the outcome. Our milestone payment system protects you every step of the way</p>
+            </li>
+            <li>
+                <h2>We're Here to Support You</h2>
+                <p>Your time is precious. Let our team of expert recruiters and co-pilots save you time finding talent, even managing your job if needed.</p>
+            </li>
+            <li id="start" style=" color:#0f0f0f; font-weight:bold;">Start now</li>
+        </ul>
+    </div>
+
+    <div class="guides">
+        <div class="guide">
+            <img src="https://i.pinimg.com/originals/a3/f7/af/a3f7afbd7cccb2bffd62c6f2efe533aa.jpg" alt="Side Business Guide">
+            <div class="guide-content">
+                <h3>Start a Side Business</h3>
+                <p>Learn the essentials of scaling your passion project.</p>
+            </div>
+        </div>
+
+        <div class="guide">
+            <img src="https://cdn.geekwire.com/wp-content/uploads/2020/04/GettyImages-1176582602-1.jpg" alt="Side Business Guide">
+            <div class="guide-content">
+                <h3>Work from Home</h3>
+                <p>Start building your dream business from the comfort of your home.</p>
+            </div>
+        </div>
+
+        <div class="guide">
+            <img src="https://nuancedmedia.com/wp-content/uploads/2022/11/NM-Blog-41-Amazons-Marketing-Strategy-Images-02.jpg" alt="Side Business Guide">
+            <div class="guide-content">
+                <h3>E-commerce business ideas</h3>
+                <p>Discover innovative e-commerce opportunities to grow your online business.</p>
+            </div>
+        </div>
+    </div>
+    <button id="moreGuides">More Guides</button>
+
+    <!-- Existing Profile Cards -->
+    <div class="container" id="profileContainer1">
+        <div class="profile-card">
+          <img src="https://sl.bing.net/faMgQugroXs" alt="profile">
+          <h1>Christopher</h1>
+          <p class="role">Full Stack Developer</p>
+          <div class="skills">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>React</span>
+            <span>Node.js</span>
+            <span>UI Design</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="profone.jpg" alt="profile">
+          <h1>James</h1>
+          <p class="role">Full Stack Developer</p>
+          <div class="skills">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>React</span>
+            <span>Node.js</span>
+            <span>UI Design</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="https://sl.bing.net/fmpcBANQcwe" alt="profile">
+          <h1>Sarah</h1>
+          <p class="role">UI/UX Designer &amp; Backend Engineer</p>
+          <div class="skills">
+            <span>Figma</span>
+            <span>Adobe XD</span>
+            <span>JavaScript</span>
+            <span>Python</span>
+            <span>Node.js</span>
+            <span>PostgreSQL</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="https://pin.it/4pFGNclvD" alt="profile">
+          <h1>Julian</h1>
+          <p class="role">DevOps Engineer</p>
+          <div class="skills">
+            <span>Docker</span>
+            <span>Kubernetes</span>
+            <span>Jenkins</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+    </div>
+
+    <div class="container" id="profileContainer2">
+        <div class="profile-card">
+          <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+          <h1>William</h1>
+          <p class="role">Cybersecurity Lead</p>
+          <div class="skills">
+            <span>Ethical Hacking</span>
+            <span>SIEM</span>
+            <span>Pentesting</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="profone.jpg" alt="profile">
+          <h1>Rohit</h1>
+          <p class="role">Product Manager</p>
+          <div class="skills">
+            <span>Jira</span>
+            <span>Trello</span>
+            <span>Agile</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+          <h1>Leo</h1>
+          <p class="role">AI/ML Specialist</p>
+          <div class="skills">
+            <span>PyTorch</span>
+            <span>OpenAI API</span>
+            <span>Scikit-learn</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+          <h1>Mack</h1>
+          <p class="role">QA Automation</p>
+          <div class="skills">
+            <span>Selenium</span>
+            <span>Cypress</span>
+            <span>Jest</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+    </div>
+
+    <div class="container" id="profileContainer3">
+        <div class="profile-card">
+          <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+          <h1>David</h1>
+          <p class="role">Mobile App Developer</p>
+          <div class="skills">
+            <span>React Native</span>
+            <span>Flutter</span>
+            <span>Firebase</span>
+            <span>Kotlin</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="profone.jpg" alt="profile">
+          <h1>Marcus</h1>
+          <p class="role">Backend Engineer</p>
+          <div class="skills">
+            <span>Python</span>
+            <span>AWS</span>
+            <span>Node.js</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+          <h1>Priya</h1>
+          <p class="role">Data Scientist</p>
+          <div class="skills">
+            <span>R</span>
+            <span>Pandas</span>
+            <span>TensorFlow</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+
+        <div class="profile-card">
+          <img src="https://i.pravatar.cc/150?img=12" alt="profile">
+          <h1>Arav</h1>
+          <p class="role">Frontend Developer</p>
+          <div class="skills">
+            <span>Vue.js</span>
+            <span>Tailwind CSS</span>
+            <span>Vite</span>
+            <span>Three.js</span>
+          </div>
+          <button class="btn">Hire Me</button>
+        </div>
+    </div>
+
+    <!-- ABOUT OVERLAY -->
+    <div class="find" id="aboutOverlay">
+        <button class="close-btn" id="closeAbout">&times;</button>
+        <div style="max-width: 1100px; margin: 0 auto; padding: 40px 20px;">
+            <h2 style="font-size: 3rem; text-align:center; margin-bottom: 20px; color: mediumpurple;">About Us</h2>
+            <p style="font-size: 1.3rem; max-width: 700px; margin: 0 auto 60px; color: #ccc; text-align:center;">
+                We are a modern freelance marketplace connecting talented professionals with businesses worldwide.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px;">
+                <div style="text-align: left;">
+                    <h3 style="color: mediumpurple; font-size: 1.8rem;">Our Mission</h3>
+                    <p style="color: #ddd; line-height: 1.7;">
+                        To democratize opportunity by creating a global platform where anyone with skills can thrive and businesses can access world-class talent instantly.
+                    </p>
+                </div>
+                <div style="text-align: left;">
+                    <h3 style="color: mediumpurple; font-size: 1.8rem;">Our Vision</h3>
+                    <p style="color: #ddd; line-height: 1.7;">
+                        A world where work is borderless, flexible, and based purely on talent and results.
+                    </p>
+                </div>
+                <div style="text-align: left;">
+                    <h3 style="color:  mediumpurple; font-size: 1.8rem;">Why Choose Us?</h3>
+                    <ul style="color: #ccc; line-height: 2; text-align: left;">
+                        <li>✓ Verified freelancers &amp; secure payments</li>
+                        <li>✓ 1500+ categories</li>
+                        <li>✓ Global talent pool across 180+ countries</li>
+                        <li>✓ AI-powered matching system</li>
+                        <li>✓ 24/7 support &amp; dispute protection</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 80px; display: flex; flex-wrap: wrap; justify-content: center; gap: 60px; text-align: center;">
+                <div>
+                    <h2 style="font-size: 3.5rem; color: mediumseagreen; margin: 0;">50K+</h2>
+                    <p style="color: #aaa;">Active Freelancers</p>
+                </div>
+                <div>
+                    <h2 style="font-size: 3.5rem; color: var(--accent); margin: 0;">12K+</h2>
+                    <p style="color: #aaa;">Projects Completed</p>
+                </div>
+                <div>
+                    <h2 style="font-size: 3.5rem; color: var(--accent); margin: 0;">98%</h2>
+                    <p style="color: #aaa;">Client Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SOLUTIONS OVERLAY -->
+    <div class="find" id="solutionsOverlay">
+        <button class="close-btn" id="closeSolutions">&times;</button>
+        <div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+            <h2 style="text-align: center; font-size: 3rem; margin-bottom: 20px; color: var(--accent);">Solutions</h2>
+            <p style="text-align: center; font-size: 1.3rem; color: #bbb; max-width: 700px; margin: 0 auto 70px;">
+                Tailored solutions for businesses and freelancers
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 40px;">
+
+                <!-- For Clients -->
+                <div style="background: #1a1a1a; padding: 50px; border-radius: 24px; border: 1px solid #333;">
+                    <h3 style="font-size: 2rem; color: white; margin-bottom: 30px;">For Clients &amp; Businesses</h3>
+                    <div style="display: flex; flex-direction: column; gap: 25px;">
+                        <div style="display: flex; gap: 20px;">
+                            <span style="font-size: 2.5rem;">🚀</span>
+                            <div>
+                                <h4>Fast Talent Hiring</h4>
+                                <p style="color: #ccc;">Post a job and get proposals from top freelancers within minutes.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px;">
+                            <span style="font-size: 2.5rem;">🛡️</span>
+                            <div>
+                                <h4>Secure Payments</h4>
+                                <p style="color: #ccc;">Milestone-based payments with full protection.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px;">
+                            <span style="font-size: 2.5rem;">📊</span>
+                            <div>
+                                <h4>Enterprise Solutions</h4>
+                                <p style="color: #ccc;">Dedicated account managers, custom workflows &amp; team hiring.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="alert('Contact sales for enterprise plans!')" 
+                            style="margin-top: 40px; width: 100%; padding: 18px; background: var(--accent); color: #0f0f0f; border: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; cursor: pointer;">
+                        Get Started as a Client
+                    </button>
+                </div>
+
+                <!-- For Freelancers -->
+                <div style="background: #1a1a1a; padding: 50px; border-radius: 24px; border: 1px solid #333;">
+                    <h3 style="font-size: 2rem; color: white; margin-bottom: 30px;">For Freelancers</h3>
+                    <div style="display: flex; flex-direction: column; gap: 25px;">
+                        <div style="display: flex; gap: 20px;">
+                            <span style="font-size: 2.5rem;">💰</span>
+                            <div>
+                                <h4>Earn More</h4>
+                                <p style="color: #ccc;">Access high-paying projects from global clients.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px;">
+                            <span style="font-size: 2.5rem;">📈</span>
+                            <div>
+                                <h4>Grow Your Business</h4>
+                                <p style="color: #ccc;">Build your profile, get reviews, and scale into an agency.</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 20px;">
+                            <span style="font-size: 2.5rem;">🛠️</span>
+                            <div>
+                                <h4>Tools &amp; Resources</h4>
+                                <p style="color: #ccc;">Invoicing, contracts, time tracking, and success guides.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="alert('Create your freelancer profile now!')" 
+                            style="margin-top: 40px; width: 100%; padding: 18px; background: var(--accent); color: #0f0f0f; border: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; cursor: pointer;">
+                        Become a Freelancer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <ul>
+                <li><h2>Categories</h2></li>
+                <li><a href="">Graphics &amp; Design</a></li>
+                <li><a href="">Digital Marketing</a></li>
+                <li><a href="">Writing &amp; Translation</a></li>
+                <li><a href="">Video &amp; Animation</a></li>
+                <li><a href="">Music &amp; Audio</a></li>
+                <li><a href="">Programming &amp; Tech</a></li>
+                <li><a href="">AI Services</a></li>
+                <li><a href="">Consulting</a></li>
+                <li><a href="">Data</a></li>
+                <li><a href="">Business</a></li>
+                <li><a href="">Personal Growth &amp; Hobbies</a></li>
+                <li><a href="">Photography</a></li>
+                <li><a href="">Finance</a></li>
+                <li><a href="">End-to-End Projects</a></li>
+                <li><a href="">Service Catalog</a></li>
+            </ul>
+            <ul>
+                <li><h2>For Clients</h2></li>
+                <li><a href="">How Fiverr Works</a></li>
+                <li><a href="">Customer Success Stories</a></li>
+                <li><a href="">Quality Guide</a></li>
+                <li><a href="">Voxel Guides</a></li>
+                <li><a href="">Voxek Answers</a></li>
+                <li><a href="">Browse Freelance By Skill</a></li>
+            </ul>
+            <ul>
+                <li><h2>For Freelancers</h2></li>
+                <li><a href="">Become a Fiverr Freelancer</a></li>
+                <li><a href="">Become an Agency</a></li>
+                <li><a href="">Community Hub</a></li>
+                <li><a href="">Forum</a></li>
+                <li><a href="">Events</a></li>
+            </ul>
+            <ul>
+                <li><h2>Company</h2></li>
+                <li><a href="">About Fiverr</a></li>
+                <li><a href="">Help Center</a></li>
+                <li><a href="">Trust &amp; Safety</a></li>
+                <li><a href="">Social Impact</a></li>
+                <li><a href="">Careers</a></li>
+                <li><a href="">Terms of Service</a></li>
+                <li><a href="">Privacy Policy</a></li>
+                <li><a href="">Do not sell or share my personal information</a></li>
+                <li><a href="">Partnerships</a></li>
+                <li><a href="">Creator Network</a></li>
+                <li><a href="">Affiliates</a></li>
+                <li><a href="">Invite a Friend</a></li>
+                <li><a href="">Press &amp; News</a></li>
+                <li><a href="">Investor Relations</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Sections Logic
+        let one = document.getElementById('one');
+        let two = document.getElementById('two');
+
+        function shownext() {
+            two.style.display = 'block';
+            one.style.display = 'none';
+        }
+
+        function showprev() {
+            two.style.display = 'none';
+            one.style.display = 'block';
+        }
+
+        // Overlay Logic - Find Freelancers
+        const findBtn = document.getElementById('find');
+        const findOverlay = document.getElementById('findOverlay');
+        const closeBtn = document.getElementById('closeOverlay');
+
+        findBtn.addEventListener('click', () => {
+            findOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            findOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // FIND JOBS OVERLAY
+        const findBtntwo = document.getElementById('findjobs');
+        const findOverlaytwo = document.getElementById('findJobsOverlay');
+        const closeBtntwo = document.getElementById('closeJobsOverlay');
+        
+        findBtntwo.addEventListener('click', () => {
+            findOverlaytwo.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeBtntwo.addEventListener('click', () => {
+            findOverlaytwo.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // ABOUT & SOLUTIONS OVERLAYS
+        const aboutBtn = document.getElementById('aboutBtn');
+        const solutionsBtn = document.getElementById('solutionBtn');
+
+        const aboutOverlay = document.getElementById('aboutOverlay');
+        const solutionsOverlay = document.getElementById('solutionsOverlay');
+
+        const closeAbout = document.getElementById('closeAbout');
+        const closeSolutions = document.getElementById('closeSolutions');
+
+        aboutBtn.addEventListener('click', () => {
+            aboutOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        solutionsBtn.addEventListener('click', () => {
+            solutionsOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeAbout.addEventListener('click', () => {
+            aboutOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        closeSolutions.addEventListener('click', () => {
+            solutionsOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close when clicking outside overlays
+        aboutOverlay.addEventListener('click', (e) => {
+            if (e.target === aboutOverlay) {
+                aboutOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        solutionsOverlay.addEventListener('click', (e) => {
+            if (e.target === solutionsOverlay) {
+                solutionsOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        findOverlay.addEventListener('click', (e) => {
+            if (e.target === findOverlay) {
+                findOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        findOverlaytwo.addEventListener('click', (e) => {
+            if (e.target === findOverlaytwo) {
+                findOverlaytwo.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // NEW: Function to open Find Freelancers overlay (used by mega menu)
+        function openFindOverlay() {
+            const mega = document.querySelector('.mega-menu');
+            if (mega) mega.style.display = 'none';
+            
+            findOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close mega menu when clicking anywhere else
+        document.addEventListener('click', function(e) {
+            const megaMenu = document.querySelector('.mega-menu');
+            const navItem = document.querySelector('.nav-item.has-mega');
+            
+            if (megaMenu && navItem && !navItem.contains(e.target)) {
+                megaMenu.style.display = 'none';
+            }
+        });
+
+        // Make account clickable - now opens Create Profile
+        const account = document.querySelector('.account');
+        if (account) {
+            account.addEventListener('click', () => {
+                document.getElementById('createProfileOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        // ========== NEW: CREATE PROFILE FEATURE ==========
+        let userSkills = [];
+
+        // Live image preview
+        const imageInput = document.getElementById('profileImageUrl');
+        const previewImg = document.getElementById('profilePreview');
+
+        if (imageInput && previewImg) {
+            imageInput.addEventListener('input', () => {
+                if (imageInput.value.trim() !== '') {
+                    previewImg.src = imageInput.value;
+                }
+            });
+        }
+
+        // Add skill tag
+        function addSkill() {
+            const input = document.getElementById('skillInput');
+            const value = input.value.trim();
+            
+            if (!value) return;
+            if (userSkills.includes(value)) {
+                input.value = '';
+                return;
+            }
+            
+            userSkills.push(value);
+            renderSkillTags();
+            input.value = '';
+        }
+
+        function renderSkillTags() {
+            const container = document.getElementById('skillTags');
+            container.innerHTML = '';
+            
+            userSkills.forEach((skill, index) => {
+                const tag = document.createElement('div');
+                tag.className = 'skill-tag';
+                tag.innerHTML = `
+                    ${skill}
+                    <span class="remove" onclick="removeSkill(${index})">×</span>
+                `;
+                container.appendChild(tag);
+            });
+        }
+
+        function removeSkill(index) {
+            userSkills.splice(index, 1);
+            renderSkillTags();
+        }
+
+        // Allow Enter key to add skill
+        const skillInputEl = document.getElementById('skillInput');
+        if (skillInputEl) {
+            skillInputEl.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSkill();
+                }
+            });
+        }
+
+        // Create Profile function
+        function createProfile() {
+            const name = document.getElementById('profileName').value.trim();
+            const title = document.getElementById('profileTitle').value.trim();
+            const bio = document.getElementById('profileBio').value.trim();
+            const rate = document.getElementById('profileRate').value.trim();
+            const imageUrl = document.getElementById('profileImageUrl').value.trim() || 'https://i.pravatar.cc/150?img=12';
+
+            if (!name || !title) {
+                alert('Please fill in your Name and Professional Title.');
+                return;
+            }
+            
+            if (userSkills.length < 2) {
+                alert('Please add at least 2 skills.');
+                return;
+            }
+
+            // Create new profile card
+            const newCard = document.createElement('div');
+            newCard.className = 'profile-card';
+            
+            let skillsHTML = '';
+            userSkills.forEach(skill => {
+                skillsHTML += `<span>${skill}</span>`;
+            });
+
+            let rateHTML = rate ? `<p style="text-align:center; color:#aaa; font-size:0.9rem; margin:8px 0 0;">${rate}</p>` : '';
+
+            newCard.innerHTML = `
+                <img src="${imageUrl}" alt="${name}">
+                <h1>${name}</h1>
+                <p class="role">${title}</p>
+                ${rateHTML}
+                <div class="skills">
+                    ${skillsHTML}
+                </div>
+                <button class="btn" onclick="hireMe(this)">Hire Me</button>
+            `;
+
+            // Add to the first profile container
+            const container = document.getElementById('profileContainer1');
+            container.appendChild(newCard);
+
+            // Close modal and reset form
+            document.getElementById('createProfileOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Reset form
+            resetProfileForm();
+
+            // Show success toast
+            showSuccessToast();
+            
+            // Scroll to the new profile
+            setTimeout(() => {
+                newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                newCard.style.boxShadow = '0 0 0 4px var(--accent)';
+                setTimeout(() => {
+                    newCard.style.boxShadow = '0 15px 35px rgba(0,0,0,0.4)';
+                }, 1800);
+            }, 600);
+        }
+
+        function resetProfileForm() {
+            document.getElementById('profileName').value = '';
+            document.getElementById('profileTitle').value = '';
+            document.getElementById('profileBio').value = '';
+            document.getElementById('profileRate').value = '';
+            document.getElementById('profileImageUrl').value = 'https://i.pravatar.cc/150?img=12';
+            document.getElementById('profilePreview').src = 'https://i.pravatar.cc/150?img=12';
+            
+            userSkills = [];
+            document.getElementById('skillTags').innerHTML = '';
+        }
+
+        function showSuccessToast() {
+            const toast = document.getElementById('successToast');
+            toast.style.display = 'flex';
+            
+            setTimeout(() => {
+                toast.style.transition = 'all 0.4s ease';
+                toast.style.opacity = '0';
+                
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    toast.style.opacity = '1';
+                    toast.style.transition = '';
+                }, 400);
+            }, 2800);
+        }
+
+        // Bonus: Hire Me button action for dynamically created cards
+        function hireMe(button) {
+            const card = button.closest('.profile-card');
+            const name = card.querySelector('h1').innerText;
+            
+            button.style.transition = 'all 0.3s';
+            button.innerText = 'Request Sent!';
+            button.style.background = '#166534';
+            button.style.color = 'white';
+            
+            setTimeout(() => {
+                alert(`Thank you! A message has been sent to ${name}. They will contact you soon.`);
+                button.innerText = 'Hire Me';
+                button.style.background = 'mediumpurple';
+                button.style.color = '#000';
+            }, 1400);
+        }
+
+        // Open Create Profile overlay
+        const createProfileBtn = document.getElementById('createProfileBtn');
+        const createProfileOverlay = document.getElementById('createProfileOverlay');
+        const closeCreateProfile = document.getElementById('closeCreateProfile');
+
+        createProfileBtn.addEventListener('click', () => {
+            createProfileOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Reset skills when opening
+            userSkills = [];
+            document.getElementById('skillTags').innerHTML = '';
+        });
+
+        closeCreateProfile.addEventListener('click', () => {
+            createProfileOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close create profile overlay on outside click
+        createProfileOverlay.addEventListener('click', (e) => {
+            if (e.target === createProfileOverlay) {
+                createProfileOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Keyboard escape to close any overlay
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.find.active').forEach(overlay => {
+                    overlay.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+
+</body>
+</html>

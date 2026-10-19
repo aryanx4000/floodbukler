@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palet Ross</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            min-height: 150vh; /* to allow scroll */
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            background: white;
+        }
+        .nav-container {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+        .nav-container button {
+            margin: 5px;
+            border: none;
+            background: transparent;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #ross {
+            background: transparent;
+            border: none;
+            font-size: large;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .scroll-box {
+            width: 20px;
+            max-width: 600px;
+            height: 200px;
+            padding: 30px;
+            margin: 40px auto;
+            background-color: black;
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            font-size: 1.2rem;
+            
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+            opacity: 0;
+        }
+        .from-bottom {
+            transform: translateY(100%);
+        }
+        .scroll-box.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        /* 2. Make the same animation work for both */
+.reveal {
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  opacity: 0;
+  text-align: center;
+}
+
+.from-bottom {
+  transform: translateY(100%);
+}
+
+.reveal.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* your box specific styles stay separate */
+.scroll-box {
+  width: 80%;
+  max-width: 600px;
+  padding: 30px;
+  background-color: black;
+  color: white;
+  border-radius: 12px;
+}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <button id="ross">Palet Ross</button>
+        <div class="nav-container">
+            <button>E-Commerce</button>
+            <button>Solution</button>
+            <button>Contact</button>
+            <button>Pricing</button>
+            <button>Create Strategy</button>
+            <button>Get Started</button>
+        </div>
+    </nav>
+
+    <div style="height: 60vh"></div> <!-- spacer to test scroll -->
+
+   <h1 class="reveal from-bottom">A place to display your masterpiece.</h1>
+    <div class="scroll-box from-bottom">
+        <h3>Card 1</h3>
+        <p>I slid in from the bottom!</p>
+    </div>
+
+    <script>
+        const boxes = document.querySelectorAll('.scroll-box, h1, h2');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    // observer.unobserve(entry.target); // uncomment if you want it to animate only once
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        boxes.forEach(box => observer.observe(box));
+        // 3. Observe .reveal instead of just .scroll-box
+    const reveals = document.querySelectorAll('.reveal');
+
+    
+    </script>
+    
+</body>
+</html>

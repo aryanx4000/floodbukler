@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VinylPlay • Holy</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+
+        :root {
+            --accent: #ff6b6b;
+            --bg: #0f0f12;
+            --surface: #1a1a1f;
+            --surface-2: #25252b;
+            --text: #f1f1f3;
+            --text-muted: #a1a1aa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system_ui, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            min-height: 90%;
+            min-width: 1000px;
+            background: var(--surface);
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .header {
+            background: #111114;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 22px;
+            letter-spacing: -1px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        .main-content {
+            display: flex;
+            gap: 40px;
+            padding: 40px;
+            align-items: flex-start;
+        }
+
+        /* === VINYL PLAYER === */
+        .player-section {
+            flex-shrink: 0;
+        }
+
+        .player-con {
+            width: 420px;
+            height: 420px;
+            background: linear-gradient(145deg, #2c2520, #1f1a17);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 30px 70px rgba(0,0,0,0.7),
+                inset 0 0 80px rgba(0,0,0,0.6),
+                0 0 0 12px #111114,
+                0 0 0 18px #2a2723;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rotating-disc {
+            width: 340px;
+            height: 340px;
+            background: repeating-radial-gradient(
+                circle at center,
+                #111 0px,
+                #111 3px,
+                #1a1a1a 4px,
+                #111 7px
+            );
+            border: 8px solid #222;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.8),
+                inset 0 0 60px rgba(255,255,255,0.08);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .rotating-disc.spinning {
+            animation: spin 1.85s linear infinite;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.8),
+                inset 0 0 60px rgba(255,255,255,0.08),
+                0 0 40px rgba(255, 107, 107, 0.15);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .big-round {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110px;
+            height: 110px;
+            background: #fa8072;
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.5),
+                0 0 0 8px #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mid-round {
+            width: 52px;
+            height: 52px;
+            background: #f8f1e9;
+            border-radius: 50%;
+            box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .small-round {
+            width: 16px;
+            height: 16px;
+            background: #111;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px #444;
+        }
+
+        /* Tonearm */
+        .tonearm-assembly {
+            position: absolute;
+            right: 45px;
+            top: 55px;
+            width: 120px;
+            height: 340px;
+            pointer-events: none;
+        }
+
+        .arm-base {
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(#888, #555);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            right: 12px;
+            box-shadow: 
+                inset 0 4px 8px rgba(255,255,255,0.3),
+                0 4px 12px rgba(0,0,0,0.6);
+            border: 3px solid #444;
+        }
+
+        .stick {
+            height: 235px;
+            width: 9px;
+            background: linear-gradient(to bottom, #c9c9c9, #888);
+            position: absolute;
+            top: 32px;
+            right: 36px;
+            border-radius: 6px;
+            transform-origin: top center;
+            transform: rotate(-12deg);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 2px 4px 8px rgba(0,0,0,0.4);
+        }
+
+        .tilt-stick {
+            height: 55px;
+            width: 9px;
+            background: linear-gradient(to bottom, #c9c9c9, #888);
+            position: absolute;
+            bottom: -48px;
+            right: -1px;
+            border-radius: 4px;
+            transform: rotate(42deg);
+            transform-origin: top center;
+        }
+
+        .end-part {
+            height: 28px;
+            width: 16px;
+            background: #e74c3c;
+            position: absolute;
+            bottom: -22px;
+            left: -4px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 3px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }
+
+        .separator {
+            height: 13px;
+            width: 4px;
+            background: #111;
+        }
+
+        /* === RIGHT PANEL === */
+        .info-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .song-info h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 6px;
+        }
+
+        .song-info .artist {
+            font-size: 22px;
+            color: #ddd;
+            font-weight: 500;
+        }
+
+        .song-info .album {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--surface-2);
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid #333;
+        }
+
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .time {
+            font-size: 13px;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-muted);
+            min-width: 42px;
+        }
+
+        #progress {
+            flex: 1;
+            accent-color: var(--accent);
+            height: 6px;
+            border-radius: 999px;
+            background: #333;
+            cursor: pointer;
+        }
+
+        .main-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .control-btn {
+            background: #333;
+            border: none;
+            color: white;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .control-btn:hover {
+            background: #444;
+            transform: scale(1.05);
+        }
+
+        #play-btn {
+            width: 68px;
+            height: 68px;
+            font-size: 28px;
+            background: var(--accent);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        #play-btn:hover {
+            background: #ff5252;
+            transform: scale(1.08);
+        }
+
+        .volume-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #volume {
+            flex: 1;
+            accent-color: var(--accent);
+        }
+
+        /* Lyrics */
+        .lyrics-wrapper {
+            background: var(--surface-2);
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 0px solid #333;
+            overflow: hidden;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lyrics-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+
+        .lyrics-header h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #ccc;
+        }
+
+        .lyrics {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 15.5px;
+            line-height: 1.65;
+            color: #aaa;
+            padding-right: 8px;
+            scroll-behavior: smooth;
+        }
+
+        .lyrics-wrapper::-webkit-scrollbar,
+        .lyrics::-webkit-scrollbar {
+            width: 5px;
+        }
+        .lyrics-wrapper::-webkit-scrollbar-thumb,
+        .lyrics::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background: #ff6b6b;
+        }
+
+        .lyric-line {
+            padding: 7px 0;
+            transition: all 0.25s ease;
+            border-radius: 6px;
+            padding-left: 4px;
+        }
+
+        .lyric-line.active {
+            color: #fff;
+            font-weight: 600;
+            font-size: 17px;
+            background: rgba(255, 107, 107, 0.12);
+            padding-left: 12px;
+            text-shadow: 0 0 12px rgba(255, 107, 107, 0.5);
+        }
+
+        .note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        .other-songs {
+            background: var(--surface-2);
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 0px solid #333;
+            height: 900px;
+            width: 400px;
+            margin-right: 40px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .nextsong {
+            height: 100px;
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            border-radius: 20px;
+            background: #1f1a17;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .nextsong:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+
+        .nextsong img {
+            height: 80px;
+            width: 80px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .nextsong h2 {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin-left: 14px;
+            margin-top: 18px;
+        }
+
+        .nextsong p {
+            color: #666;
+            font-size: 14px;
+            margin-left: 14px;
+            margin-top: 48px;
+        }
+
+        .other-songs::-webkit-scrollbar {
+            width: 5px;
+        }
+        .other-songs::-webkit-scrollbar-thumb {
+            border-radius: 20px;
+            background: #ff6b6b;
+        }
+
+        .vinyl-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-12deg);
+            font-size: 9px;
+            font-weight: 700;
+            color: #222;
+            letter-spacing: 1.5px;
+            z-index: 2;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR: Other Songs / Recommendations -->
+    <div class="other-songs">
+        <div class="nextsong">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/f5/7a/9e/f57a9e6a-31c8-0784-dfbd-4a0120bfd4af/21UMGIM17517.rgb.jpg/1200x1200bf-60.jpg" alt="Ghost">
+            <h2>Ghost</h2>
+            <p>Justin Bieber</p>
+        </div>
+        <div class="nextsong">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/f5/7a/9e/f57a9e6a-31c8-0784-dfbd-4a0120bfd4af/21UMGIM17517.rgb.jpg/1200x1200bf-60.jpg" alt="Peaches">
+            <h2>Peaches</h2>
+            <p>Justin Bieber</p>
+        </div>
+        <div class="nextsong">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/d2/21/4e/d2214ea9-97ff-46ef-ac45-7fca6fb73839/20UMGIM03126.rgb.jpg/1200x1200bf-60.jpg" alt="Yummy">
+            <h2>Yummy</h2>
+            <p>Justin Bieber</p>
+        </div>
+        <div class="nextsong">
+            <img src="https://i.kym-cdn.com/photos/images/newsfeed/001/421/778/647.jpg_large" alt="Sunflower">
+            <h2>Sunflower</h2>
+            <p>Post Malone &amp; Swae Lee</p>
+        </div>
+        <div class="nextsong">
+            <img src="https://images.genius.com/48038b5d8599ff51aed5b761e4b62a65.640x640x1.png" alt="Let Me Go">
+            <h2>Let Me Go</h2>
+            <p>Hailee Steinfeld &amp; Alec Benjamin</p>
+        </div>
+        <div class="nextsong">
+            <img src="https://images.genius.com/421d20b2c5c517968740221006852fd5.1000x1000x1.png" alt="Mona Lisa">
+            <h2>Mona Lisa</h2>
+            <p>Dominic Fike</p>
+        </div>
+        <div class="nextsong">
+            <img src="https://mylivewallpapers.com/wp-content/uploads/Movies/thumb-Across-Spider-Verse-Logo.jpg" alt="Self Love">
+            <h2>Self Love</h2>
+            <p>Metro Boomin &amp; Coi Leray</p>
+        </div>
+        <div class="nextsong">
+            <img src="https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/f5/7a/9e/f57a9e6a-31c8-0784-dfbd-4a0120bfd4af/21UMGIM17517.rgb.jpg/1200x1200bf-60.jpg" alt="Lifetime">
+            <h2>Lifetime</h2>
+            <p>Justin Bieber</p>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <span>Vinyl</span><span style="color:#ff6b6b">Play</span>
+                <div class="logo-dot"></div>
+            </div>
+            <div style="color:#666; font-size:13px;">Now Playing</div>
+        </div>
+
+        <div class="main-content">
+            
+            <!-- VINYL PLAYER -->
+            <div class="player-section">
+                <div class="player-con">
+                    <!-- Spinning Vinyl -->
+                    <div class="rotating-disc" id="disc">
+                        <div class="big-round">
+                            <div class="mid-round">
+                                <span id="vinyl-text" class="vinyl-text">HOLY</span>
+                                <div class="small-round"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tonearm -->
+                    <div class="tonearm-assembly">
+                        <div class="arm-base"></div>
+                        <div class="stick" id="stick">
+                            <div class="tilt-stick">
+                                <div class="end-part" id="end">
+                                    <div class="separator"></div>
+                                    <div class="separator"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Album Art -->
+                <img id="album-art" src="holy.webp" style="height: 350px; width: 350px; border-radius: 12px; margin-top: 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); margin-left: 35px; border: 1px solid #333;" alt="Album Art">
+            </div>
+
+            <!-- RIGHT SIDE: INFO + CONTROLS + LYRICS -->
+            <div class="info-panel">
+                
+                <!-- Song Info -->
+                <div class="song-info">
+                    <h1 id="song-title">Holy</h1>
+                    <p class="artist" id="artist-name">Justin Bieber</p>
+                    <p class="album" id="album-line">Justice (2021) • Pop</p>
+                </div>
+
+                <!-- Playback Controls -->
+                <div class="controls">
+                    <div class="progress-wrapper">
+                        <span class="time" id="current-time">0:00</span>
+                        <input type="range" id="progress" min="0" max="100" step="0.1" value="0">
+                        <span class="time" id="duration">0:00</span>
+                    </div>
+
+                    <div class="main-buttons">
+                        <button class="control-btn" id="prev-btn">⏮</button>
+                        <button class="control-btn" id="play-btn">▶</button>
+                        <button class="control-btn" id="next-btn">⏭</button>
+                    </div>
+
+                    <div class="volume-wrapper">
+                        <span style="font-size:18px;">🔊</span>
+                        <input type="range" id="volume" min="0" max="1" step="0.01" value="0.75">
+                    </div>
+                </div>
+
+                <!-- Lyrics -->
+                <div class="lyrics-wrapper">
+                    <div class="lyrics-header">
+                        <h3>🎤 Lyrics</h3>
+                        <span style="font-size:12px; color:#666;">Synced • Real-time</span>
+                    </div>
+                    <div class="lyrics" id="lyrics-container"></div>
+                </div>
+
+                <div class="note">Click any song on the left to switch.<br>Place songname.mp3 and songname.lrc in the same folder as this file.</div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio-player" src="holy.mp3"></audio>
+
+    <script>
+        // Elements
+        const disc = document.getElementById('disc');
+        const stick = document.getElementById('stick');
+        const playBtn = document.getElementById('play-btn');
+        const audio = document.getElementById('audio-player');
+        const lyricsContainer = document.getElementById('lyrics-container');
+        const progressSlider = document.getElementById('progress');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const volumeSlider = document.getElementById('volume');
+
+        let lyrics = [];
+        let lyricElements = [];
+
+        // Format seconds to mm:ss
+        function formatTime(seconds) {
+            if (!seconds || isNaN(seconds)) return "0:00";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec.toString().padStart(2, '0')}`;
+        }
+
+        // Update play button appearance
+        function updatePlayButton(isPlaying) {
+            if (isPlaying) {
+                playBtn.innerHTML = '⏸';
+                playBtn.style.background = '#444';
+            }
+            else {
+                playBtn.innerHTML = '▶';
+                playBtn.style.background = '#ff6b6b';
+            }
+        }
+
+        // Play / Pause
+        function togglePlayback() {
+            if (audio.paused) {
+                stick.style.transform = "rotate(32deg)";
+                disc.classList.add('spinning');
+                audio.play().catch(() => {});
+                updatePlayButton(true);
+            } else {
+                stick.style.transform = "rotate(-12deg)";
+                disc.classList.remove('spinning');
+                audio.pause();
+                updatePlayButton(false);
+            }
+        }
+
+        playBtn.addEventListener('click', togglePlayback);
+
+        // Keyboard support (Spacebar)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Spacebar') {
+                e.preventDefault();
+                togglePlayback();
+            }
+        });
+
+        // Progress bar + time display + lyrics sync
+        audio.addEventListener('timeupdate', () => {
+            if (!audio.duration) return;
+
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressSlider.value = percent;
+
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+
+            // Find current active lyric
+            let activeIndex = -1;
+            for (let i = 0; i < lyrics.length; i++) {
+                if (audio.currentTime >= lyrics[i].time) {
+                    activeIndex = i;
+                } else {
+                    break;
+                }
+            }
+
+            // Update active class + scroll into view
+            lyricElements.forEach((el, index) => {
+                if (index === activeIndex) {
+                    if (!el.classList.contains('active')) {
+                        el.classList.add('active');
+                        el.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                } else {
+                    el.classList.remove('active');
+                }
+            });
+        });
+
+        // Seek when user drags progress bar
+        progressSlider.addEventListener('input', () => {
+            if (audio.duration) {
+                audio.currentTime = (progressSlider.value / 100) * audio.duration;
+            }
+        });
+
+        // Duration display
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+
+        // Volume control
+        volumeSlider.addEventListener('input', () => {
+            audio.volume = volumeSlider.value;
+        });
+
+        // Song ended
+        audio.addEventListener('ended', () => {
+            stick.style.transform = "rotate(-12deg)";
+            disc.classList.remove('spinning');
+            updatePlayButton(false);
+            progressSlider.value = 0;
+            currentTimeEl.textContent = "0:00";
+        });
+
+        // === NEW: Clickable sidebar songs ===
+        document.querySelectorAll('.nextsong').forEach(item => {
+            item.addEventListener('click', () => {
+                const titleEl = item.querySelector('h2');
+                const artistEl = item.querySelector('p');
+                const imgEl = item.querySelector('img');
+                if (!titleEl || !artistEl || !imgEl) return;
+
+                const title = titleEl.textContent.trim();
+                const artist = artistEl.textContent.trim();
+                const cover = imgEl.src;
+
+                // Generate safe filename (e.g. "Let Me Go" → "let-me-go.mp3")
+                let slug = title.toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+                if (!slug) slug = 'unknown';
+
+                const audioSrc = `${slug}.mp3`;
+                const lrcSrc = `${slug}.lrc`;
+
+                switchToSong(title, artist, cover, audioSrc, lrcSrc);
+            });
+        });
+
+        function switchToSong(title, artist, cover, audioSrc, lrcSrc) {
+            // Pause current playback
+            if (!audio.paused) {
+                audio.pause();
+            }
+
+            // Update song info
+            document.getElementById('song-title').textContent = title;
+            document.getElementById('artist-name').textContent = artist;
+            document.getElementById('album-line').textContent = 'Single • Pop';
+
+            // Update album art
+            const albumArt = document.getElementById('album-art');
+            if (albumArt) albumArt.src = cover;
+
+            // Change audio source
+            audio.src = audioSrc;
+
+            // Reset progress & time UI
+            progressSlider.value = 0;
+            currentTimeEl.textContent = '0:00';
+            durationEl.textContent = '--:--';
+
+            // Reset vinyl visuals to paused state
+            disc.classList.remove('spinning');
+            stick.style.transform = 'rotate(-12deg)';
+            updatePlayButton(false);
+
+            // Update spinning label on vinyl
+            const vinylText = document.getElementById('vinyl-text');
+            if (vinylText) {
+                let label = title.split(/\s+/)[0].toUpperCase().substring(0, 6);
+                if (title.toLowerCase().includes('let me')) label = 'LET GO';
+                if (title.toLowerCase() === 'self love') label = 'SELF';
+                vinylText.textContent = label;
+            }
+
+            // Load new lyrics
+            loadLyrics(lrcSrc);
+        }
+
+        function loadLyrics(lrcFile) {
+            lyrics = [];
+            lyricElements = [];
+            lyricsContainer.innerHTML = '';
+
+            fetch(lrcFile)
+                .then(response => {
+                    if (!response.ok) throw new Error('File not found');
+                    return response.text();
+                })
+                .then(text => {
+                    const lines = text.split('\n');
+                    const timeRegex = /\[(\d+):(\d+)\.(\d+)\]/;
+                    let hasLyrics = false;
+
+                    lines.forEach(line => {
+                        const match = timeRegex.exec(line);
+                        if (match) {
+                            const minutes = parseInt(match[1], 10);
+                            const seconds = parseInt(match[2], 10);
+                            const hundredths = parseInt(match[3], 10);
+                            const time = minutes * 60 + seconds + hundredths / 100;
+
+                            const lyricText = line.replace(timeRegex, '').trim();
+                            if (lyricText) {
+                                hasLyrics = true;
+                                lyrics.push({ time, text: lyricText });
+
+                                const lineEl = document.createElement('div');
+                                lineEl.className = 'lyric-line';
+                                lineEl.textContent = lyricText;
+                                lyricsContainer.appendChild(lineEl);
+                                lyricElements.push(lineEl);
+                            }
+                        }
+                    });
+
+                    if (!hasLyrics) {
+                        lyricsContainer.innerHTML = `<div style="color:#666; padding:20px 0; text-align:center;">No synced lyrics found in ${lrcFile}.</div>`;
+                    }
+                })
+                .catch(() => {
+                    lyricsContainer.innerHTML = `<div style="color:#666; padding:20px 0; text-align:center;">⚠️ ${lrcFile} not found.<br>Make sure the .mp3 and .lrc files are in the same folder.</div>`;
+                });
+        }
+
+        // Initial volume
+        audio.volume = 0.75;
+        volumeSlider.value = 0.75;
+
+        // Initial lyrics for Holy
+        loadLyrics('holy.lrc');
+
+        // Bonus: Click on disc to play/pause
+        disc.addEventListener('click', togglePlayback);
+
+        // Optional: prev/next buttons (simple - can be expanded later)
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            // For demo: just restart current song
+            audio.currentTime = 0;
+        });
+
+        document.getElementById('next-btn').addEventListener('click', () => {
+            // For demo: pick a random song from sidebar
+            const songs = document.querySelectorAll('.nextsong');
+            if (songs.length > 0) {
+                const random = songs[Math.floor(Math.random() * songs.length)];
+                random.click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Animation Example</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden; /* Prevents horizontal scrollbars during animations */
+      padding-bottom: 100px;
+    }
+
+    header {
+      margin: 50px 0;
+      text-align: center;
+    }
+
+    /* Base styles for the scrolling boxes */
+    .scroll-box {
+      width: 80%;
+      max-width: 600px;
+      height: 200px;
+      padding: 30px;
+      margin: 40px 0;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      font-size: 1.2rem;
+      color: #333;
+     
+      /* Smooth transition for the slide-in effect */
+      transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+      opacity: 0; /* Hidden by default */
+    }
+
+    /* Initial state: Slide from Left */
+    .from-left {
+      transform: translateX(-100%);
+    }
+
+    /* Initial state: Slide from Right */
+    .from-right {
+      transform: translateX(100%);
+    }
+
+    /* Active state when element enters the viewport */
+    .scroll-box.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Scroll Down to See the Magic ✨</h1>
+  </header>
+
+  <div class="scroll-box from-left">
+    <h3>Card 1</h3>
+    <p>I slid in from the left!</p>
+  </div>
+
+  <div class="scroll-box from-right">
+    <h3>Card 2</h3>
+    <p>I slid in from the right!</p>
+  </div>
+
+  <div class="scroll-box from-left">
+    <h3>Card 3</h3>
+    <p>Coming in hot from the left again.</p>
+  </div>
+
+  <div class="scroll-box from-right">
+    <h3>Card 4</h3>
+    <p>And finishing off from the right!</p>
+  </div>
+
+  <script>
+    // Select all elements you want to animate
+    const boxes = document.querySelectorAll('.scroll-box');
+
+    // Create an observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // If the box is visible in the viewport, add the 'show' class
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.2 // Triggers when 20% of the element is visible
+    });
+
+    // Observe each box
+    boxes.forEach(box => observer.observe(box));
+  </script>
+
+</body>
+</html>
